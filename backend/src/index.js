@@ -10,6 +10,8 @@ const path = require('path');
 const MCPServer = require('./core/mcp-server');
 const OrchestratorAgent = require('./agents/orchestrator');
 const InterpreterAgent = require('./agents/interpreter');
+const ArchitectAgent = require('./agents/architect');
+const CoderAgent = require('./agents/coder');  // NOVO - DIA 3
 
 // Criar aplicação Express
 const app = express();
@@ -21,19 +23,23 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Inicializar MCP e Agentes
 console.log('\n========================================');
-console.log('     ABBA PLATFORM - DAY 1              ');
+console.log('     ABBA PLATFORM - DAY 3              ');
 console.log('========================================\n');
 
 const mcp = new MCPServer();
 const orchestrator = new OrchestratorAgent(mcp);
 const interpreter = new InterpreterAgent();
+const architect = new ArchitectAgent();
+const coder = new CoderAgent();  // NOVO - DIA 3
 
 // Registrar agentes no MCP
 mcp.registerAgent('orchestrator', orchestrator);
 mcp.registerAgent('interpreter', interpreter);
+mcp.registerAgent('architect', architect);
+mcp.registerAgent('coder', coder);  // NOVO - DIA 3
 
-// Configurar pipeline
-orchestrator.setPipeline(['interpreter']);
+// Configurar pipeline - ATUALIZADO DIA 3
+orchestrator.setPipeline(['interpreter', 'architect', 'coder']);
 
 // ======================
 // ROTAS DA API
@@ -89,7 +95,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     service: 'ABBA Platform',
-    version: '0.1.0',
+    version: '0.3.0',  // ATUALIZADO - DIA 3
     mcp: status,
     timestamp: new Date()
   });
@@ -101,8 +107,8 @@ app.get('/api/health', (req, res) => {
 app.get('/api/test', (req, res) => {
   res.json({
     message: 'ABBA API is running',
-    day: 1,
-    agents: ['orchestrator', 'interpreter'],
+    day: 3,  // ATUALIZADO - DIA 3
+    agents: ['orchestrator', 'interpreter', 'architect', 'coder'],  // ATUALIZADO - DIA 3
     ready: true
   });
 });
@@ -131,7 +137,7 @@ const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {
   console.log('========================================');
-  console.log('         ABBA PLATFORM - DAY 1         ');
+  console.log('         ABBA PLATFORM - DAY 3         ');
   console.log('========================================');
   console.log('');
   console.log('  Status: RUNNING');
@@ -141,7 +147,11 @@ app.listen(PORT, () => {
   console.log('  [OK] MCP Server');
   console.log('  [OK] Orchestrator Agent');
   console.log('  [OK] Interpreter Agent');
+  console.log('  [OK] Architect Agent');
+  console.log('  [OK] Coder Agent');  // NOVO - DIA 3
   console.log('  [OK] REST API');
+  console.log('');
+  console.log('  Pipeline: interpret -> architect -> code');
   console.log('');
   console.log('  Access:');
   console.log(`  http://localhost:${PORT}`);
