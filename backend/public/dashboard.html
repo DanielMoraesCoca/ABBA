@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABBA Day 4 - Metrics Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .metric-change {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .highlight {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        .agents-list {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .agents-list h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .agent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .agent-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .agent-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .agent-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #ffd700);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 ABBA Day 4 Metrics <span class="live-indicator"></span></h1>
+        <p class="subtitle">Building agents with agents - recursive self-improvement in action</p>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Agents Created Today</div>
+                <div class="metric-value" id="agentsCreated">0</div>
+                <div class="metric-change">Target: 5+ agents</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="agentsProgress" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Lines Generated</div>
+                <div class="metric-value" id="linesGenerated">0</div>
+                <div class="metric-change">By ABBA itself</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Created by ABBA</div>
+                <div class="metric-value highlight" id="byAbba">0/0</div>
+                <div class="metric-change">100% automated</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Time Saved</div>
+                <div class="metric-value success" id="timeSaved">0h</div>
+                <div class="metric-change">vs manual coding</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Success Rate</div>
+                <div class="metric-value" id="successRate">0%</div>
+                <div class="metric-change">First-try success</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Acceleration</div>
+                <div class="metric-value highlight" id="acceleration">1x</div>
+                <div class="metric-change">Faster than manual</div>
+            </div>
+        </div>
+
+        <div class="agents-list">
+            <h2>🤖 Agents Created by ABBA</h2>
+            <div id="agentsList">
+                <div class="agent-item">
+                    <span>Waiting for agents...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let metricsData = {
+            agentsCreated: 0,
+            linesGenerated: 0,
+            agentsUsedToBuild: 0,
+            timeSavedFormatted: '0h 0m',
+            successRate: '0%',
+            acceleration: '1x',
+            createdAgents: []
+        };
+
+        function updateMetrics() {
+            fetch('/api/metrics')
+                .then(res => res.json())
+                .then(data => {
+                    metricsData = data;
+                    renderMetrics();
+                })
+                .catch(err => console.error('Error fetching metrics:', err));
+        }
+
+        function renderMetrics() {
+            // Update metric values
+            document.getElementById('agentsCreated').textContent = metricsData.agentsCreated;
+            document.getElementById('linesGenerated').textContent = metricsData.linesGenerated.toLocaleString();
+            document.getElementById('byAbba').textContent = `${metricsData.agentsUsedToBuild}/${metricsData.agentsCreated}`;
+            document.getElementById('timeSaved').textContent = metricsData.timeSavedFormatted || '0h';
+            document.getElementById('successRate').textContent = metricsData.successRate || '0%';
+            document.getElementById('acceleration').textContent = metricsData.acceleration || '1x';
+
+            // Update progress bar
+            const progress = Math.min((metricsData.agentsCreated / 5) * 100, 100);
+            document.getElementById('agentsProgress').style.width = `${progress}%`;
+
+            // Update agents list
+            const agentsList = document.getElementById('agentsList');
+            if (metricsData.createdAgents && metricsData.createdAgents.length > 0) {
+                agentsList.innerHTML = metricsData.createdAgents.map(agent => `
+                    <div class="agent-item">
+                        <span class="agent-name">${agent.name}</span>
+                        <div class="agent-stats">
+                            <div class="stat">
+                                <div class="stat-value">${agent.lines}</div>
+                                <div class="stat-label">Lines</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${Math.round(agent.time / 1000)}s</div>
+                                <div class="stat-label">Time</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${agent.createdByABBA ? '🤖' : '👤'}</div>
+                                <div class="stat-label">Source</div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Update metrics every 2 seconds
+        updateMetrics();
+        setInterval(updateMetrics, 2000);
+
+        // Add some animation
+        setTimeout(() => {
+            document.querySelectorAll('.metric-card').forEach((card, index) => {
+                card.style.animation = `fadeIn 0.5s ease ${index * 0.1}s`;
+            });
+        }, 100);
+
+        // Fade in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    </body>
+    </html>
