@@ -1,31 +1,55 @@
 /**
  * Orchestrator Agent - Coordena o pipeline de criação de agentes
+ * ATUALIZADO - DIA 4
  */
+
+const metrics = require('../core/metrics'); // NOVO - DIA 4
 
 class OrchestratorAgent {
     constructor(mcpServer) {
       this.id = 'orchestrator';
       this.mcp = mcpServer;
-      this.pipeline = [];  // Sequência de agentes para processar
+      this.pipeline = [];
+      this.agents = {}; // NOVO - DIA 4: Referências aos agentes
+    }
+  
+    /**
+     * NOVO - DIA 4: Define referências aos agentes
+     */
+    setAgents(agents) {
+      this.agents = agents;
+      console.log('Agents registered with orchestrator:', Object.keys(agents));
     }
   
     /**
      * Define o pipeline de processamento
-     * Ex: ['interpreter', 'architect', 'coder']
      */
     setPipeline(agents) {
       this.pipeline = agents;
-      console.log(`Pipeline set: ${agents.join(' -> ')}`);
+      console.log(`Pipeline set: ${agents.join(' → ')}`);
     }
   
     /**
      * Processa uma descrição através do pipeline completo
+     * ATUALIZADO - DIA 4
      */
     async processDescription(description) {
       console.log('\n' + '='.repeat(50));
       console.log('ORCHESTRATOR: Starting pipeline');
       console.log('Input:', description);
       console.log('='.repeat(50));
+      
+      const startTime = Date.now(); // NOVO - DIA 4
+      
+      // NOVO - DIA 4: Tracking com monitor
+      let tracking;
+      if (this.agents.monitor) {
+        tracking = await this.agents.monitor.trackExecution(
+          'Orchestrator', 
+          'process-description', 
+          { description }
+        );
+      }
       
       // Começa com a descrição original
       let result = {
@@ -39,17 +63,43 @@ class OrchestratorAgent {
         console.log(`\n→ Processing with ${agentId}...`);
         
         try {
-          // Envia para o próximo agente
+          // Se for o validator e tivermos código gerado
+          if (agentId === 'validator' && result.generatedCode && this.agents.validator) {
+            console.log('VALIDATOR: Validating generated code...');
+            const validationReport = await this.agents.validator.validateCode(
+              result.generatedCode,
+              'javascript'
+            );
+            result.validationReport = validationReport;
+            
+            // Se a validação passou, gerar testes
+            if (validationReport.valid && this.agents.testWriter) {
+              console.log('TEST WRITER: Generating tests...');
+              const tests = await this.agents.testWriter.generateTests(
+                result.generatedCode,
+                result.suggestedName || 'GeneratedAgent'
+              );
+              result.generatedTests = tests;
+            }
+            
+            result.pipelineSteps.push({
+              agent: agentId,
+              success: validationReport.valid,
+              timestamp: new Date()
+            });
+            
+            continue;
+          }
+          
+          // Processo normal para outros agentes
           const response = await this.mcp.orchestrate(
             this.id,
             agentId,
             result
           );
           
-          // Adiciona resposta ao resultado
           result = { ...result, ...response };
           
-          // Registra o passo
           result.pipelineSteps.push({
             agent: agentId,
             success: true,
@@ -67,6 +117,33 @@ class OrchestratorAgent {
         }
       }
       
+      // NOVO - DIA 4: Registrar métricas
+      const executionTime = Date.now() - startTime;
+      if (result.generatedCode) {
+        const linesOfCode = result.generatedCode.split('\n').length;
+        
+        metrics.recordAgentCreation(
+          result.suggestedName || 'GeneratedAgent',
+          linesOfCode,
+          executionTime,
+          result.validationReport?.valid || true,
+          true // created by ABBA
+        );
+        
+        console.log(`
+  AGENT CREATION METRICS
+   Lines Generated: ${linesOfCode}
+   Execution Time: ${executionTime}ms
+   Validation: ${result.validationReport?.valid ? 'PASSED' : 'FAILED'}
+   Tests Generated: ${result.generatedTests ? 'YES' : 'NO'}
+        `);
+      }
+      
+      // NOVO - DIA 4: Completar tracking
+      if (tracking) {
+        await tracking.complete(result);
+      }
+      
       console.log('\n' + '='.repeat(50));
       console.log('ORCHESTRATOR: Pipeline complete');
       console.log('='.repeat(50));
@@ -76,6 +153,7 @@ class OrchestratorAgent {
   
     /**
      * Cria especificação final do agente
+     * ATUALIZADO - DIA 4
      */
     async createAgentSpecification(processedData) {
       console.log('Creating final agent specification...');
@@ -90,9 +168,29 @@ class OrchestratorAgent {
         deliveryMethods: processedData.deliveryMethods || ['api'],
         complexity: processedData.complexity || 'simple',
         status: 'specified',
+        // NOVO - DIA 4: Adicionar informações de validação e testes
+        validation: processedData.validationReport || null,
+        hasTests: !!processedData.generatedTests,
+        metrics: {
+          linesOfCode: processedData.generatedCode ? 
+            processedData.generatedCode.split('\n').length : 0,
+          validated: processedData.validationReport?.valid || false,
+          testsGenerated: !!processedData.generatedTests
+        },
         createdAt: new Date(),
         specification: processedData
       };
+      
+      // NOVO - DIA 4: Se tudo passou, preparar para deploy
+      if (spec.validation?.valid && this.agents.deployer) {
+        console.log('DEPLOYER: Preparing deployment...');
+        const deployment = await this.agents.deployer.deployAgent(
+          spec.name,
+          processedData.generatedCode,
+          'docker'
+        );
+        spec.deployment = deployment;
+      }
       
       return spec;
     }
@@ -101,11 +199,10 @@ class OrchestratorAgent {
      * Método requerido para agentes
      */
     async process(message, context) {
-      // Orchestrator geralmente não é chamado por outros agentes
-      // Mas precisa deste método para ser um agente válido
       return {
         status: 'orchestrator_ready',
-        pipeline: this.pipeline
+        pipeline: this.pipeline,
+        agents: Object.keys(this.agents) // NOVO - DIA 4
       };
     }
   }
