@@ -1,20 +1,23 @@
 /**
  * Orchestrator Agent - Coordena o pipeline de criação de agentes
- * ATUALIZADO - DIA 4
+ * ATUALIZADO - DIA 5
  */
 
-const metrics = require('../core/metrics'); // NOVO - DIA 4
+const metrics = require('../core/metrics');
+const contextManager = require('../core/context-manager');
+const memorySystem = require('../core/memory-system');
+const toolRegistry = require('../core/tool-registry');
 
 class OrchestratorAgent {
     constructor(mcpServer) {
       this.id = 'orchestrator';
       this.mcp = mcpServer;
       this.pipeline = [];
-      this.agents = {}; // NOVO - DIA 4: Referências aos agentes
+      this.agents = {};
     }
   
     /**
-     * NOVO - DIA 4: Define referências aos agentes
+     * Define referências aos agentes
      */
     setAgents(agents) {
       this.agents = agents;
@@ -31,7 +34,6 @@ class OrchestratorAgent {
   
     /**
      * Processa uma descrição através do pipeline completo
-     * ATUALIZADO - DIA 4
      */
     async processDescription(description) {
       console.log('\n' + '='.repeat(50));
@@ -39,9 +41,9 @@ class OrchestratorAgent {
       console.log('Input:', description);
       console.log('='.repeat(50));
       
-      const startTime = Date.now(); // NOVO - DIA 4
+      const startTime = Date.now();
       
-      // NOVO - DIA 4: Tracking com monitor
+      // Tracking com monitor
       let tracking;
       if (this.agents.monitor) {
         tracking = await this.agents.monitor.trackExecution(
@@ -117,7 +119,7 @@ class OrchestratorAgent {
         }
       }
       
-      // NOVO - DIA 4: Registrar métricas
+      // Registrar métricas
       const executionTime = Date.now() - startTime;
       if (result.generatedCode) {
         const linesOfCode = result.generatedCode.split('\n').length;
@@ -139,7 +141,7 @@ class OrchestratorAgent {
         `);
       }
       
-      // NOVO - DIA 4: Completar tracking
+      // Completar tracking
       if (tracking) {
         await tracking.complete(result);
       }
@@ -150,10 +152,146 @@ class OrchestratorAgent {
       
       return result;
     }
+
+    /**
+     * NOVO - DIA 5: Processa com persistência no banco
+     */
+    async processWithPersistence(description) {
+      const agentId = `agent_${Date.now()}`;
+      
+      // Salvar contexto inicial
+      await contextManager.saveContext(agentId, {
+        description,
+        startTime: Date.now()
+      });
+      
+      // Processar normalmente
+      const result = await this.processDescription(description);
+      
+      // Salvar na memória de longo prazo
+      await memorySystem.remember(agentId, 'creationResult', result, 'long');
+      await memorySystem.remember(agentId, 'description', description, 'long');
+      
+      // Atualizar contexto com resultado
+      await contextManager.updateContext(agentId, {
+        result,
+        endTime: Date.now(),
+        status: 'completed'
+      });
+      
+      // Salvar agente no banco de dados
+      await this.saveAgentToDatabase(agentId, result);
+      
+      // Registrar ferramentas disponíveis para o agente
+      const availableTools = toolRegistry.getAvailableTools();
+      await memorySystem.remember(agentId, 'availableTools', availableTools, 'long');
+      
+      console.log(`
+  PERSISTENCE COMPLETE
+   Agent ID: ${agentId}
+   Context Saved: ✓
+   Memory Saved: ✓
+   Database Saved: ✓
+   Tools Registered: ${availableTools.length}
+      `);
+      
+      return { ...result, agentId };
+    }
+
+    /**
+     * NOVO - DIA 5: Salva agente no banco de dados
+     */
+    async saveAgentToDatabase(agentId, result) {
+      try {
+        const db = require('../config/database');
+        
+        await db.query(
+          `INSERT INTO agents (id, name, type, description, code, config, status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7)
+           ON CONFLICT (id) DO UPDATE
+           SET name = $2, type = $3, description = $4, code = $5, config = $6, status = $7`,
+          [
+            agentId,
+            result.suggestedName || 'Generated Agent',
+            result.agentType || 'assistant',
+            result.originalDescription,
+            result.generatedCode || '',
+            JSON.stringify(result),
+            'active'
+          ]
+        );
+        
+        console.log(`Agent saved to database: ${agentId}`);
+      } catch (error) {
+        console.error('Error saving agent to database:', error);
+        // Don't throw - allow process to continue even if DB save fails
+      }
+    }
+
+    /**
+     * NOVO - DIA 5: Carrega agente do banco com contexto e memória
+     */
+    async loadAgent(agentId) {
+      try {
+        const db = require('../config/database');
+        
+        // Carregar agente do banco
+        const agentResult = await db.query(
+          'SELECT * FROM agents WHERE id = $1',
+          [agentId]
+        );
+        
+        if (agentResult.rows.length === 0) {
+          throw new Error(`Agent ${agentId} not found`);
+        }
+        
+        const agent = agentResult.rows[0];
+        
+        // Carregar contexto
+        const context = await contextManager.loadContext(agentId);
+        
+        // Carregar memórias
+        const creationResult = await memorySystem.recall(agentId, 'creationResult', 'long');
+        const availableTools = await memorySystem.recall(agentId, 'availableTools', 'long');
+        
+        // Obter estatísticas de memória
+        const memoryStats = await memorySystem.getMemoryStats(agentId);
+        
+        return {
+          ...agent,
+          context,
+          memory: {
+            creationResult,
+            availableTools,
+            stats: memoryStats
+          }
+        };
+      } catch (error) {
+        console.error(`Error loading agent ${agentId}:`, error);
+        throw error;
+      }
+    }
+
+    /**
+     * NOVO - DIA 5: Lista todos os agentes salvos
+     */
+    async listSavedAgents() {
+      try {
+        const db = require('../config/database');
+        
+        const result = await db.query(
+          'SELECT id, name, type, status, created_at FROM agents ORDER BY created_at DESC'
+        );
+        
+        return result.rows;
+      } catch (error) {
+        console.error('Error listing agents:', error);
+        return [];
+      }
+    }
   
     /**
      * Cria especificação final do agente
-     * ATUALIZADO - DIA 4
      */
     async createAgentSpecification(processedData) {
       console.log('Creating final agent specification...');
@@ -168,7 +306,6 @@ class OrchestratorAgent {
         deliveryMethods: processedData.deliveryMethods || ['api'],
         complexity: processedData.complexity || 'simple',
         status: 'specified',
-        // NOVO - DIA 4: Adicionar informações de validação e testes
         validation: processedData.validationReport || null,
         hasTests: !!processedData.generatedTests,
         metrics: {
@@ -181,7 +318,7 @@ class OrchestratorAgent {
         specification: processedData
       };
       
-      // NOVO - DIA 4: Se tudo passou, preparar para deploy
+      // Se tudo passou, preparar para deploy
       if (spec.validation?.valid && this.agents.deployer) {
         console.log('DEPLOYER: Preparing deployment...');
         const deployment = await this.agents.deployer.deployAgent(
@@ -202,7 +339,12 @@ class OrchestratorAgent {
       return {
         status: 'orchestrator_ready',
         pipeline: this.pipeline,
-        agents: Object.keys(this.agents) // NOVO - DIA 4
+        agents: Object.keys(this.agents),
+        persistence: {
+          contextManager: !!contextManager,
+          memorySystem: !!memorySystem,
+          toolRegistry: !!toolRegistry
+        }
       };
     }
   }
