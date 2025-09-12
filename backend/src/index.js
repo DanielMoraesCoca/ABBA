@@ -1,5 +1,5 @@
 /**
- * ABBA API Server - Entry point - DAY 4
+ * ABBA API Server - Entry point - DAY 6
  */
 
 const express = require('express');
@@ -13,12 +13,16 @@ const InterpreterAgent = require('./agents/interpreter');
 const ArchitectAgent = require('./agents/architect');
 const CoderAgent = require('./agents/coder');
 
-// NOVO - DIA 4: Importar novos agentes e métricas
+// DIA 4: Importar agentes e métricas
 const ValidatorAgent = require('./agents/validator');
 const TestWriterAgent = require('./agents/testwriter');
 const MonitorAgent = require('./agents/monitor');
 const DeployerAgent = require('./agents/deployer');
 const metrics = require('./core/metrics');
+
+// NOVO - DIA 6: Importar logger e error handler
+const logger = require('./core/logger');
+const errorHandler = require('./core/error-handler');
 
 // Criar aplicação Express
 const app = express();
@@ -30,7 +34,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Inicializar MCP e Agentes
 console.log('\n========================================');
-console.log('     ABBA PLATFORM - DAY 4              ');
+console.log('     ABBA PLATFORM - DAY 6              ');
 console.log('========================================\n');
 
 const mcp = new MCPServer();
@@ -39,7 +43,7 @@ const interpreter = new InterpreterAgent();
 const architect = new ArchitectAgent();
 const coder = new CoderAgent();
 
-// NOVO - DIA 4: Inicializar novos agentes
+// DIA 4: Inicializar novos agentes
 const validator = new ValidatorAgent();
 const testWriter = new TestWriterAgent();
 const monitor = new MonitorAgent();
@@ -51,21 +55,27 @@ mcp.registerAgent('interpreter', interpreter);
 mcp.registerAgent('architect', architect);
 mcp.registerAgent('coder', coder);
 
-// NOVO - DIA 4: Registrar novos agentes
+// DIA 4: Registrar novos agentes
 mcp.registerAgent('validator', validator);
 mcp.registerAgent('testwriter', testWriter);
 mcp.registerAgent('monitor', monitor);
 mcp.registerAgent('deployer', deployer);
 
-// ATUALIZADO - DIA 4: Pipeline expandido
+// Pipeline expandido
 orchestrator.setPipeline(['interpreter', 'architect', 'coder', 'validator']);
 
-// NOVO - DIA 4: Passar agentes para o orchestrator
+// Passar agentes para o orchestrator
 orchestrator.setAgents({
   validator,
   testWriter,
   monitor,
   deployer
+});
+
+// NOVO - DIA 6: Log de inicialização
+logger.info('ABBA Platform initialized', {
+  agents: mcp.getStatus().agents.length,
+  pipeline: ['interpreter', 'architect', 'coder', 'validator']
 });
 
 // ======================
@@ -79,13 +89,19 @@ app.post('/api/create-agent', async (req, res) => {
   try {
     const { description } = req.body;
     
-    // NOVO - DIA 4: Tracking de métricas
+    // Tracking de métricas
     const startTime = Date.now();
     const tracking = await monitor.trackExecution('API', 'create-agent', { description });
+    
+    // NOVO - DIA 6: Log da requisição
+    logger.info('New agent creation request', { 
+      description: description?.substring(0, 100) 
+    });
     
     // Validação
     if (!description || description.trim().length === 0) {
       await tracking.complete(null, 'Description is required');
+      logger.warn('Agent creation failed: no description provided');
       return res.status(400).json({
         success: false,
         error: 'Description is required'
@@ -101,7 +117,7 @@ app.post('/api/create-agent', async (req, res) => {
     // Criar especificação final
     const agentSpec = await orchestrator.createAgentSpecification(interpretation);
     
-    // NOVO - DIA 4: Registrar métricas
+    // Registrar métricas
     const executionTime = Date.now() - startTime;
     const linesGenerated = interpretation.generatedCode ? 
       interpretation.generatedCode.split('\n').length : 0;
@@ -118,14 +134,21 @@ app.post('/api/create-agent', async (req, res) => {
     
     await tracking.complete(agentSpec);
     
+    // NOVO - DIA 6: Log de sucesso
+    logger.info('Agent created successfully', {
+      name: agentSpec.name,
+      linesGenerated,
+      executionTime
+    });
+    
     // Resposta de sucesso
     res.json({
       success: true,
       agent: agentSpec,
       interpretation: interpretation,
-      code: interpretation.generatedCode, // NOVO - incluir código gerado
-      tests: interpretation.generatedTests, // NOVO - incluir testes
-      validation: interpretation.validationReport, // NOVO - incluir validação
+      code: interpretation.generatedCode,
+      tests: interpretation.generatedTests,
+      validation: interpretation.validationReport,
       metrics: {
         executionTime,
         linesGenerated
@@ -134,38 +157,63 @@ app.post('/api/create-agent', async (req, res) => {
     });
     
   } catch (error) {
-    console.error('[ERROR] Creating agent:', error);
-    res.status(500).json({
-      success: false,
-      error: error.message
+    // NOVO - DIA 6: Error handling melhorado
+    logger.error('Agent creation failed', { 
+      error: error.message,
+      stack: error.stack 
     });
+    
+    const errorResponse = errorHandler.handle(error, {
+      endpoint: '/api/create-agent',
+      description: req.body.description
+    });
+    
+    res.status(500).json(errorResponse);
   }
 });
 
-// NOVO - DIA 4: Rota de métricas
+// Rota de métricas
 app.get('/api/metrics', (req, res) => {
   res.json(metrics.getMetrics());
 });
 
-// NOVO - DIA 4: Rota do dashboard
+// Rota do dashboard
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/dashboard.html'));
 });
 
-// NOVO - DIA 4: Rota de relatório diário
+// Rota de relatório diário
 app.get('/api/report', async (req, res) => {
-  const report = await monitor.generateDailyReport();
-  res.json(report);
+  try {
+    const report = await monitor.generateDailyReport();
+    res.json(report);
+  } catch (error) {
+    const errorResponse = errorHandler.handle(error);
+    res.status(500).json(errorResponse);
+  }
 });
 
-// NOVO - DIA 4: Rota de saúde do sistema
+// Rota de saúde do sistema
 app.get('/api/system-health', (req, res) => {
   const health = monitor.getSystemHealth();
   res.json(health);
 });
 
+// NOVO - DIA 6: Rota para ver erros recentes (desenvolvimento)
+app.get('/api/errors', (req, res) => {
+  if (process.env.NODE_ENV === 'production') {
+    return res.status(403).json({ 
+      error: 'This endpoint is only available in development' 
+    });
+  }
+  
+  res.json({
+    errors: errorHandler.getRecentErrors(20)
+  });
+});
+
 /**
- * Rota de health check - ATUALIZADA
+ * Rota de health check - ATUALIZADA DIA 6
  */
 app.get('/api/health', (req, res) => {
   const status = mcp.getStatus();
@@ -174,31 +222,42 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     service: 'ABBA Platform',
-    version: '0.4.0',  // ATUALIZADO - DIA 4
+    version: '0.6.0',  // ATUALIZADO - DIA 6
     mcp: status,
     system: systemHealth,
+    features: {
+      logging: true,
+      errorHandling: true,
+      professionalUI: true
+    },
     timestamp: new Date()
   });
 });
 
 /**
- * Rota de teste rápido - ATUALIZADA
+ * Rota de teste rápido - ATUALIZADA DIA 6
  */
 app.get('/api/test', (req, res) => {
   res.json({
     message: 'ABBA API is running',
-    day: 4,  // ATUALIZADO - DIA 4
+    day: 6,  // ATUALIZADO - DIA 6
     agents: [
       'orchestrator', 'interpreter', 'architect', 'coder',
-      'validator', 'testwriter', 'monitor', 'deployer'  // NOVO - DIA 4
+      'validator', 'testwriter', 'monitor', 'deployer'
     ],
-    metrics: metrics.getMetrics(), // NOVO - DIA 4
+    metrics: metrics.getMetrics(),
+    features: {
+      professionalInterface: true,
+      structuredLogging: true,
+      errorHandling: true,
+      pipelineVisualization: true
+    },
     ready: true
   });
 });
 
 /**
- * Listar agentes disponíveis - ATUALIZADA
+ * Listar agentes disponíveis
  */
 app.get('/api/agents', (req, res) => {
   const status = mcp.getStatus();
@@ -206,7 +265,11 @@ app.get('/api/agents', (req, res) => {
   res.json({
     agents: status.agents,
     total: status.agents.length,
-    newAgents: ['validator', 'testwriter', 'monitor', 'deployer'] // NOVO - DIA 4
+    categories: {
+      core: ['orchestrator', 'interpreter', 'architect', 'coder'],
+      validation: ['validator', 'testwriter'],
+      operations: ['monitor', 'deployer']
+    }
   });
 });
 
@@ -217,13 +280,26 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
+// NOVO - DIA 6: Error handling middleware (deve ser o último)
+app.use(errorHandler.middleware());
+
 // Iniciar servidor
 const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {
+  // NOVO - DIA 6: Log estruturado de startup
+  logger.info('ABBA Platform Started', {
+    port: PORT,
+    environment: process.env.NODE_ENV || 'development',
+    version: '0.6.0',
+    day: 6,
+    agents: 8,
+    features: ['logging', 'error-handling', 'professional-ui']
+  });
+  
   console.log('========================================');
-  console.log('         ABBA PLATFORM - DAY 4         ');
-  console.log('     AGENTS BUILDING AGENTS            ');
+  console.log('         ABBA PLATFORM - DAY 6         ');
+  console.log('        INTERFACE & POLISH             ');
   console.log('========================================');
   console.log('');
   console.log('  Status: RUNNING');
@@ -236,35 +312,53 @@ app.listen(PORT, () => {
   console.log('  [✓] Architect Agent');
   console.log('  [✓] Coder Agent');
   console.log('');
-  console.log('  NEW Day 4 Agents:');
+  console.log('  Validation & Testing:');
   console.log('  [✓] Validator Agent');
   console.log('  [✓] Test Writer Agent');
+  console.log('');
+  console.log('  Operations:');
   console.log('  [✓] Monitor Agent');
   console.log('  [✓] Deployer Agent');
   console.log('');
-  console.log('  Pipeline: interpret → architect → code → validate');
+  console.log('  NEW Day 6 Features:');
+  console.log('  [✓] Professional Web Interface');
+  console.log('  [✓] Pipeline Visualization');
+  console.log('  [✓] Structured Logging');
+  console.log('  [✓] Error Handling System');
+  console.log('  [✓] Agent Dashboard');
   console.log('');
-  console.log('  Features:');
-  console.log('  [✓] Metrics Collection');
-  console.log('  [✓] Dashboard');
-  console.log('  [✓] System Monitoring');
-  console.log('  [✓] Deployment Ready');
+  console.log('  Pipeline: interpret → architect → code → validate');
   console.log('');
   console.log('  Access:');
   console.log(`  Web Interface: http://localhost:${PORT}`);
   console.log(`  Dashboard: http://localhost:${PORT}/dashboard`);
   console.log(`  API Health: http://localhost:${PORT}/api/health`);
   console.log(`  Metrics: http://localhost:${PORT}/api/metrics`);
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`  Error Log: http://localhost:${PORT}/api/errors`);
+  }
   console.log('');
   console.log('========================================');
 });
 
-// Tratamento de erros não capturados
+// Tratamento de erros não capturados - MELHORADO DIA 6
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  logger.error('Unhandled Rejection', { 
+    reason: reason?.toString(), 
+    promise: promise?.toString() 
+  });
 });
 
 process.on('uncaughtException', (error) => {
-  console.error('Uncaught Exception:', error);
-  process.exit(1);
+  logger.error('Uncaught Exception', { 
+    error: error.message, 
+    stack: error.stack 
+  });
+  
+  // Dar tempo para o log ser escrito antes de sair
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
 });
+
+module.exports = app;
