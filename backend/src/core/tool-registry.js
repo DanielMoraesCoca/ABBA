@@ -1,162 +1,394 @@
-// backend/src/core/tool-registry.js
-const db = require('../config/database');
+const fs = require('fs').promises;
+const path = require('path');
+const nodemailer = require('nodemailer');
+const MCPConnector = require('./mcp-connector');
 
 class ToolRegistry {
-  constructor() {
-    this.tools = new Map();
-    this.loadBuiltInTools();
-  }
-
-  loadBuiltInTools() {
-    // Email tool
-    this.registerTool({
-      name: 'email',
-      category: 'communication',
-      description: 'Send and receive emails',
-      handler: async (params) => {
-        // Email implementation
-        console.log('Sending email:', params);
-        return { success: true, messageId: Date.now() };
-      },
-      config: {
-        requiresAuth: true,
-        rateLimit: 100
-      }
-    });
-
-    // Database tool
-    this.registerTool({
-      name: 'database',
-      category: 'data',
-      description: 'Query and manipulate database',
-      handler: async (params) => {
-        // Safe database operations
-        if (params.operation === 'read') {
-          return { success: true, data: [] };
+    constructor() {
+        this.tools = new Map();
+        this.usageLog = [];
+        this.mcpConnector = new MCPConnector(); // NEW: MCP connection
+        
+        // Register default tools
+        this.registerDefaultTools();
+        
+        // NEW: Register real-world tools
+        this.registerRealWorldTools();
+    }
+    
+    registerDefaultTools() {
+        // File operations
+        this.register({
+            name: 'read_file',
+            description: 'Read contents of a file',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    path: { type: 'string', description: 'Path to the file' }
+                },
+                required: ['path']
+            },
+            execute: async ({ path: filePath }) => {
+                try {
+                    const content = await fs.readFile(filePath, 'utf-8');
+                    return { success: true, content };
+                } catch (error) {
+                    return { success: false, error: error.message };
+                }
+            }
+        });
+        
+        this.register({
+            name: 'write_file',
+            description: 'Write content to a file',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    path: { type: 'string', description: 'Path to the file' },
+                    content: { type: 'string', description: 'Content to write' }
+                },
+                required: ['path', 'content']
+            },
+            execute: async ({ path: filePath, content }) => {
+                try {
+                    await fs.mkdir(path.dirname(filePath), { recursive: true });
+                    await fs.writeFile(filePath, content, 'utf-8');
+                    return { success: true, path: filePath };
+                } catch (error) {
+                    return { success: false, error: error.message };
+                }
+            }
+        });
+        
+        // System operations
+        this.register({
+            name: 'execute_command',
+            description: 'Execute a shell command',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    command: { type: 'string', description: 'Command to execute' }
+                },
+                required: ['command']
+            },
+            execute: async ({ command }) => {
+                const { exec } = require('child_process').promises;
+                try {
+                    const { stdout, stderr } = await exec(command);
+                    return { success: true, stdout, stderr };
+                } catch (error) {
+                    return { success: false, error: error.message };
+                }
+            }
+        });
+    }
+    
+    // NEW METHOD: Register real-world tools
+    registerRealWorldTools() {
+        // Email tool using Nodemailer
+        this.register({
+            name: 'send_email',
+            description: 'Send an email via SMTP',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    to: { type: 'string', description: 'Recipient email' },
+                    subject: { type: 'string', description: 'Email subject' },
+                    text: { type: 'string', description: 'Email body text' },
+                    html: { type: 'string', description: 'HTML body (optional)' }
+                },
+                required: ['to', 'subject', 'text']
+            },
+            execute: async (params) => {
+                try {
+                    // Using Ethereal for testing (fake SMTP)
+                    const testAccount = await nodemailer.createTestAccount();
+                    
+                    const transporter = nodemailer.createTransporter({
+                        host: 'smtp.ethereal.email',
+                        port: 587,
+                        secure: false,
+                        auth: {
+                            user: testAccount.user,
+                            pass: testAccount.pass
+                        }
+                    });
+                    
+                    const info = await transporter.sendMail({
+                        from: '"ABBA System" <abba@example.com>',
+                        to: params.to,
+                        subject: params.subject,
+                        text: params.text,
+                        html: params.html || `<p>${params.text}</p>`
+                    });
+                    
+                    return {
+                        success: true,
+                        messageId: info.messageId,
+                        previewUrl: nodemailer.getTestMessageUrl(info)
+                    };
+                } catch (error) {
+                    return {
+                        success: false,
+                        error: error.message
+                    };
+                }
+            }
+        });
+        
+        // HTTP Request tool
+        this.register({
+            name: 'http_request',
+            description: 'Make HTTP requests to external APIs',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    url: { type: 'string', description: 'URL to request' },
+                    method: { type: 'string', enum: ['GET', 'POST', 'PUT', 'DELETE'], description: 'HTTP method' },
+                    headers: { type: 'object', description: 'Request headers' },
+                    body: { type: 'object', description: 'Request body for POST/PUT' }
+                },
+                required: ['url', 'method']
+            },
+            execute: async (params) => {
+                try {
+                    const fetch = (await import('node-fetch')).default;
+                    
+                    const options = {
+                        method: params.method,
+                        headers: params.headers || {}
+                    };
+                    
+                    if (params.body && (params.method === 'POST' || params.method === 'PUT')) {
+                        options.body = JSON.stringify(params.body);
+                        options.headers['Content-Type'] = 'application/json';
+                    }
+                    
+                    const response = await fetch(params.url, options);
+                    const data = await response.json();
+                    
+                    return {
+                        success: true,
+                        status: response.status,
+                        data
+                    };
+                } catch (error) {
+                    return {
+                        success: false,
+                        error: error.message
+                    };
+                }
+            }
+        });
+        
+        // Database tool using file-storage (your existing system)
+        this.register({
+            name: 'store_data',
+            description: 'Store data using file storage system',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    collection: { type: 'string', description: 'Collection name' },
+                    key: { type: 'string', description: 'Data key' },
+                    data: { type: 'object', description: 'Data to store' }
+                },
+                required: ['collection', 'key', 'data']
+            },
+            execute: async (params) => {
+                try {
+                    const FileStorage = require('./file-storage');
+                    const storage = new FileStorage();
+                    
+                    await storage.save(`${params.collection}/${params.key}`, params.data);
+                    
+                    return {
+                        success: true,
+                        message: 'Data stored successfully'
+                    };
+                } catch (error) {
+                    return {
+                        success: false,
+                        error: error.message
+                    };
+                }
+            }
+        });
+        
+        // Calendar tool (mock for now, can be enhanced later)
+        this.register({
+            name: 'create_calendar_event',
+            description: 'Create a calendar event',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    title: { type: 'string', description: 'Event title' },
+                    date: { type: 'string', description: 'Event date (ISO format)' },
+                    duration: { type: 'number', description: 'Duration in minutes' },
+                    attendees: { type: 'array', items: { type: 'string' }, description: 'List of attendee emails' }
+                },
+                required: ['title', 'date']
+            },
+            execute: async (params) => {
+                try {
+                    const FileStorage = require('./file-storage');
+                    const storage = new FileStorage();
+                    
+                    const event = {
+                        id: `event-${Date.now()}`,
+                        ...params,
+                        created: new Date().toISOString()
+                    };
+                    
+                    await storage.save(`calendar/${event.id}`, event);
+                    
+                    return {
+                        success: true,
+                        eventId: event.id,
+                        message: 'Calendar event created (mock implementation)'
+                    };
+                } catch (error) {
+                    return {
+                        success: false,
+                        error: error.message
+                    };
+                }
+            }
+        });
+        
+        // WhatsApp preparation (for future days)
+        this.register({
+            name: 'whatsapp_send',
+            description: 'Send WhatsApp message (coming Day 12)',
+            inputSchema: {
+                type: 'object',
+                properties: {
+                    to: { type: 'string', description: 'Phone number' },
+                    message: { type: 'string', description: 'Message text' }
+                },
+                required: ['to', 'message']
+            },
+            execute: async (params) => {
+                return {
+                    success: true,
+                    message: 'WhatsApp integration coming on Day 12',
+                    mockData: params
+                };
+            }
+        });
+        
+        console.log('✅ Real-world tools registered');
+    }
+    
+    // NEW METHOD: Execute tool via MCP if available, fallback to local
+    async executeTool(toolName, params) {
+        // First, try MCP filesystem server for file operations
+        if (toolName.startsWith('file_') || toolName.startsWith('read_') || toolName.startsWith('write_')) {
+            const mcpResult = await this.mcpConnector.executeMCPTool('filesystem', toolName, params);
+            if (mcpResult && mcpResult.success) {
+                return mcpResult;
+            }
+            // Fallback to local implementation
         }
-        return { success: false, error: 'Operation not allowed' };
-      },
-      config: {
-        requiresAuth: true,
-        permissions: ['read']
-      }
-    });
-
-    // HTTP tool
-    this.registerTool({
-      name: 'http',
-      category: 'network',
-      description: 'Make HTTP requests',
-      handler: async (params) => {
-        const axios = require('axios');
+        
+        // Execute using local tool registry
+        return this.execute(toolName, params);
+    }
+    
+    register(tool) {
+        if (!tool.name || !tool.execute) {
+            throw new Error('Tool must have a name and execute function');
+        }
+        
+        this.tools.set(tool.name, tool);
+        console.log(`📦 Registered tool: ${tool.name}`);
+    }
+    
+    async execute(toolName, params = {}) {
+        const tool = this.tools.get(toolName);
+        
+        if (!tool) {
+            return {
+                success: false,
+                error: `Tool '${toolName}' not found`
+            };
+        }
+        
+        const startTime = Date.now();
+        
         try {
-          const response = await axios(params);
-          return { success: true, data: response.data };
+            const result = await tool.execute(params);
+            
+            // Log usage
+            this.usageLog.push({
+                tool: toolName,
+                timestamp: new Date().toISOString(),
+                duration: Date.now() - startTime,
+                success: result.success
+            });
+            
+            return {
+                success: true,
+                result
+            };
         } catch (error) {
-          return { success: false, error: error.message };
+            this.usageLog.push({
+                tool: toolName,
+                timestamp: new Date().toISOString(),
+                duration: Date.now() - startTime,
+                success: false,
+                error: error.message
+            });
+            
+            return {
+                success: false,
+                error: error.message
+            };
         }
-      },
-      config: {
-        requiresAuth: false,
-        rateLimit: 50
-      }
-    });
-
-    // File system tool
-    this.registerTool({
-      name: 'filesystem',
-      category: 'system',
-      description: 'Read and write files',
-      handler: async (params) => {
-        const fs = require('fs').promises;
-        if (params.operation === 'read') {
-          const content = await fs.readFile(params.path, 'utf8');
-          return { success: true, content };
+    }
+    
+    list() {
+        return Array.from(this.tools.values()).map(tool => ({
+            name: tool.name,
+            description: tool.description,
+            inputSchema: tool.inputSchema
+        }));
+    }
+    
+    getUsageStats() {
+        const stats = {};
+        
+        for (const log of this.usageLog) {
+            if (!stats[log.tool]) {
+                stats[log.tool] = {
+                    total: 0,
+                    success: 0,
+                    failed: 0,
+                    avgDuration: 0
+                };
+            }
+            
+            stats[log.tool].total++;
+            if (log.success) {
+                stats[log.tool].success++;
+            } else {
+                stats[log.tool].failed++;
+            }
         }
-        return { success: false, error: 'Write operations disabled' };
-      },
-      config: {
-        requiresAuth: true,
-        permissions: ['read']
-      }
-    });
-  }
-
-  async registerTool(tool) {
-    try {
-      // Register in memory
-      this.tools.set(tool.name, tool);
-      
-      // Save to database
-      await db.query(
-        `INSERT INTO agent_tools (name, category, description, config, permissions)
-         VALUES ($1, $2, $3, $4, $5)
-         ON CONFLICT (name) DO UPDATE
-         SET category = $2, description = $3, config = $4, permissions = $5`,
-        [
-          tool.name,
-          tool.category,
-          tool.description,
-          JSON.stringify(tool.config || {}),
-          JSON.stringify(tool.permissions || [])
-        ]
-      );
-      
-      console.log(`✅ Tool registered: ${tool.name}`);
-      return true;
-    } catch (error) {
-      console.error('Error registering tool:', error);
-      return false;
-    }
-  }
-
-  async useTool(toolName, params, agentId) {
-    const tool = this.tools.get(toolName);
-    
-    if (!tool) {
-      throw new Error(`Tool ${toolName} not found`);
+        
+        return stats;
     }
     
-    // Check permissions
-    if (tool.config?.requiresAuth && !agentId) {
-      throw new Error(`Tool ${toolName} requires authentication`);
+    // NEW METHOD: List all tools including MCP tools
+    async listAllTools() {
+        const localTools = this.list();
+        const mcpTools = await this.mcpConnector.listServerTools('filesystem');
+        
+        return {
+            local: localTools,
+            mcp: mcpTools,
+            total: localTools.length + mcpTools.length
+        };
     }
-    
-    // Execute tool
-    try {
-      const result = await tool.handler(params);
-      
-      // Log execution
-      await db.query(
-        `INSERT INTO executions (agent_id, input, output, status)
-         VALUES ($1, $2, $3, $4)`,
-        [
-          agentId || null,
-          JSON.stringify({ tool: toolName, params }),
-          JSON.stringify(result),
-          result.success ? 'success' : 'failed'
-        ]
-      );
-      
-      return result;
-    } catch (error) {
-      console.error(`Error executing tool ${toolName}:`, error);
-      throw error;
-    }
-  }
-
-  getAvailableTools() {
-    return Array.from(this.tools.values()).map(tool => ({
-      name: tool.name,
-      category: tool.category,
-      description: tool.description,
-      config: tool.config
-    }));
-  }
-
-  getTool(name) {
-    return this.tools.get(name);
-  }
 }
 
-module.exports = new ToolRegistry();
+module.exports = ToolRegistry;
