@@ -20,6 +20,7 @@
     "@modelcontextprotocol/server-postgres": "^0.6.2",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "googleapis": "^159.0.0",
@@ -27,7 +28,8 @@
     "node-fetch": "^3.3.2",
     "nodemailer": "^7.0.6",
     "pg": "^8.16.3",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

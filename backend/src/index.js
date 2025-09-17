@@ -1,10 +1,11 @@
 /**
- * ABBA API Server - Entry point - DAY 6
+ * ABBA API Server - Entry point - DAY 10 (Updated from DAY 6)
  */
 
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const http = require('http'); // NEW - Day 10
 
 // Importar nossos módulos EXISTENTES
 const MCPServer = require('./core/mcp-server');
@@ -20,12 +21,17 @@ const MonitorAgent = require('./agents/monitor');
 const DeployerAgent = require('./agents/deployer');
 const metrics = require('./core/metrics');
 
-// NOVO - DIA 6: Importar logger e error handler
+// DIA 6: Importar logger e error handler
 const logger = require('./core/logger');
 const errorHandler = require('./core/error-handler');
 
+// NEW - DAY 10: Import delivery systems
+const APIGateway = require('./core/api-gateway');
+const WebSocketServer = require('./core/websocket-server');
+
 // Criar aplicação Express
 const app = express();
+const server = http.createServer(app); // NEW - Day 10: HTTP server for WebSocket
 
 // Middlewares
 app.use(cors());
@@ -34,7 +40,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Inicializar MCP e Agentes
 console.log('\n========================================');
-console.log('     ABBA PLATFORM - DAY 6              ');
+console.log('     ABBA PLATFORM - DAY 10             ');
 console.log('========================================\n');
 
 const mcp = new MCPServer();
@@ -72,18 +78,37 @@ orchestrator.setAgents({
   deployer
 });
 
-// NOVO - DIA 6: Log de inicialização
+// NEW - DAY 10: Initialize API Gateway and WebSocket Server
+const apiGateway = new APIGateway();
+const wsServer = new WebSocketServer(server);
+
+// NEW - DAY 10: Mount API Gateway routes
+app.use('/api/v1', apiGateway.setupRoutes());
+
+// NEW - DAY 10: WebSocket event handlers
+wsServer.on('client_subscribed', (data) => {
+  logger.info('WebSocket client subscribed', data);
+});
+
+wsServer.on('client_disconnected', (data) => {
+  logger.info('WebSocket client disconnected', data);
+});
+
+// DIA 6: Log de inicialização - UPDATED for Day 10
 logger.info('ABBA Platform initialized', {
   agents: mcp.getStatus().agents.length,
-  pipeline: ['interpreter', 'architect', 'coder', 'validator']
+  pipeline: ['interpreter', 'architect', 'coder', 'validator'],
+  deliveryMethods: ['REST API', 'WebSocket', 'Webhooks'], // NEW
+  apiVersion: 'v1' // NEW
 });
 
 // ======================
-// ROTAS DA API
+// ROTAS DA API (EXISTING)
 // ======================
 
 /**
  * Rota principal - Criar agente a partir de descrição
+ * KEPT for backward compatibility - also available at /api/v1/agents
  */
 app.post('/api/create-agent', async (req, res) => {
   try {
@@ -93,7 +118,7 @@ app.post('/api/create-agent', async (req, res) => {
     const startTime = Date.now();
     const tracking = await monitor.trackExecution('API', 'create-agent', { description });
     
-    // NOVO - DIA 6: Log da requisição
+    // DIA 6: Log da requisição
     logger.info('New agent creation request', { 
       description: description?.substring(0, 100) 
     });
@@ -134,11 +159,25 @@ app.post('/api/create-agent', async (req, res) => {
     
     await tracking.complete(agentSpec);
     
-    // NOVO - DIA 6: Log de sucesso
+    // DIA 6: Log de sucesso
     logger.info('Agent created successfully', {
       name: agentSpec.name,
       linesGenerated,
       executionTime
+    });
+    
+    // NEW - DAY 10: Notify WebSocket subscribers
+    wsServer.broadcastToAll({
+      type: 'agent_created',
+      agent: agentSpec,
+      timestamp: new Date().toISOString()
+    });
+    
+    // NEW - DAY 10: Trigger webhooks
+    await apiGateway.triggerWebhooks('agent.created', {
+      agent: agentSpec,
+      executionTime,
+      linesGenerated
     });
     
     // Resposta de sucesso
@@ -157,7 +196,7 @@ app.post('/api/create-agent', async (req, res) => {
     });
     
   } catch (error) {
-    // NOVO - DIA 6: Error handling melhorado
+    // DIA 6: Error handling melhorado
     logger.error('Agent creation failed', { 
       error: error.message,
       stack: error.stack 
@@ -199,7 +238,7 @@ app.get('/api/system-health', (req, res) => {
   res.json(health);
 });
 
-// NOVO - DIA 6: Rota para ver erros recentes (desenvolvimento)
+// DIA 6: Rota para ver erros recentes (desenvolvimento)
 app.get('/api/errors', (req, res) => {
   if (process.env.NODE_ENV === 'production') {
     return res.status(403).json({ 
@@ -213,7 +252,7 @@ app.get('/api/errors', (req, res) => {
 });
 
 /**
- * Rota de health check - ATUALIZADA DIA 6
+ * Rota de health check - ATUALIZADA DIA 10
  */
 app.get('/api/health', (req, res) => {
   const status = mcp.getStatus();
@@ -222,25 +261,35 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     service: 'ABBA Platform',
-    version: '0.6.0',  // ATUALIZADO - DIA 6
+    version: '0.10.0',  // UPDATED - DAY 10
+    day: 10,  // UPDATED - DAY 10
     mcp: status,
     system: systemHealth,
     features: {
       logging: true,
       errorHandling: true,
-      professionalUI: true
+      professionalUI: true,
+      apiGateway: true,  // NEW
+      websocket: true,   // NEW
+      webhooks: true     // NEW
     },
+    delivery: {  // NEW
+      restApi: `http://localhost:${PORT}/api/v1`,
+      websocket: `ws://localhost:${PORT}`,
+      webhooks: apiGateway.webhookSubscriptions.size
+    },
+    websocketStats: wsServer.getStats(),  // NEW
     timestamp: new Date()
   });
 });
 
 /**
- * Rota de teste rápido - ATUALIZADA DIA 6
+ * Rota de teste rápido - ATUALIZADA DIA 10
  */
 app.get('/api/test', (req, res) => {
   res.json({
     message: 'ABBA API is running',
-    day: 6,  // ATUALIZADO - DIA 6
+    day: 10,  // UPDATED - DAY 10
     agents: [
       'orchestrator', 'interpreter', 'architect', 'coder',
       'validator', 'testwriter', 'monitor', 'deployer'
@@ -250,7 +299,15 @@ app.get('/api/test', (req, res) => {
       professionalInterface: true,
       structuredLogging: true,
       errorHandling: true,
-      pipelineVisualization: true
+      pipelineVisualization: true,
+      apiGateway: true,  // NEW
+      websocket: true,   // NEW
+      webhooks: true     // NEW
+    },
+    deliveryMethods: {  // NEW
+      rest: '/api/v1',
+      websocket: wsServer.getStats(),
+      webhooks: apiGateway.webhookSubscriptions.size
     },
     ready: true
   });
@@ -280,26 +337,27 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-// NOVO - DIA 6: Error handling middleware (deve ser o último)
+// DIA 6: Error handling middleware (deve ser o último)
 app.use(errorHandler.middleware());
 
-// Iniciar servidor
+// Iniciar servidor - UPDATED for Day 10
 const PORT = process.env.PORT || 3333;
 
-app.listen(PORT, () => {
-  // NOVO - DIA 6: Log estruturado de startup
+// Use server.listen instead of app.listen for WebSocket support
+server.listen(PORT, () => {
+  // DIA 6: Log estruturado de startup - UPDATED for Day 10
   logger.info('ABBA Platform Started', {
     port: PORT,
     environment: process.env.NODE_ENV || 'development',
-    version: '0.6.0',
-    day: 6,
+    version: '0.10.0',
+    day: 10,
     agents: 8,
-    features: ['logging', 'error-handling', 'professional-ui']
+    features: ['logging', 'error-handling', 'professional-ui', 'api-gateway', 'websocket', 'webhooks']
   });
   
   console.log('========================================');
-  console.log('         ABBA PLATFORM - DAY 6         ');
-  console.log('        INTERFACE & POLISH             ');
+  console.log('         ABBA PLATFORM - DAY 10        ');
+  console.log('        DELIVERY METHODS               ');
   console.log('========================================');
   console.log('');
   console.log('  Status: RUNNING');
@@ -320,23 +378,41 @@ app.listen(PORT, () => {
   console.log('  [✓] Monitor Agent');
   console.log('  [✓] Deployer Agent');
   console.log('');
-  console.log('  NEW Day 6 Features:');
+  console.log('  Day 6 Features:');
   console.log('  [✓] Professional Web Interface');
   console.log('  [✓] Pipeline Visualization');
   console.log('  [✓] Structured Logging');
   console.log('  [✓] Error Handling System');
   console.log('  [✓] Agent Dashboard');
   console.log('');
+  console.log('  NEW Day 10 - Delivery Methods:');
+  console.log('  [✓] API Gateway (REST v1)');
+  console.log('  [✓] WebSocket Server');
+  console.log('  [✓] Webhook System');
+  console.log('  [✓] Real-time Updates');
+  console.log('  [✓] Batch Operations');
+  console.log('');
   console.log('  Pipeline: interpret → architect → code → validate');
   console.log('');
-  console.log('  Access:');
+  console.log('  Access Points:');
   console.log(`  Web Interface: http://localhost:${PORT}`);
   console.log(`  Dashboard: http://localhost:${PORT}/dashboard`);
+  console.log(`  API v1 Gateway: http://localhost:${PORT}/api/v1`);
+  console.log(`  WebSocket: ws://localhost:${PORT}`);
   console.log(`  API Health: http://localhost:${PORT}/api/health`);
   console.log(`  Metrics: http://localhost:${PORT}/api/metrics`);
   if (process.env.NODE_ENV !== 'production') {
     console.log(`  Error Log: http://localhost:${PORT}/api/errors`);
   }
+  console.log('');
+  console.log('  API v1 Endpoints:');
+  console.log(`  POST   /api/v1/agents          - Create agent`);
+  console.log(`  GET    /api/v1/agents          - List agents`);
+  console.log(`  GET    /api/v1/agents/:id      - Get agent`);
+  console.log(`  POST   /api/v1/agents/:id/execute - Execute agent`);
+  console.log(`  POST   /api/v1/webhooks/subscribe - Subscribe webhook`);
+  console.log(`  POST   /api/v1/tools/execute   - Execute tool`);
+  console.log(`  POST   /api/v1/batch           - Batch operations`);
   console.log('');
   console.log('========================================');
 });
@@ -361,4 +437,13 @@ process.on('uncaughtException', (error) => {
   }, 1000);
 });
 
-module.exports = app;
+// NEW - DAY 10: Graceful shutdown
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM received, shutting down gracefully');
+  server.close(() => {
+    logger.info('Server closed');
+    process.exit(0);
+  });
+});
+
+module.exports = { app, server, wsServer };
