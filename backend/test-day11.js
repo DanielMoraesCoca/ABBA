@@ -1,10 +1,11 @@
-const fetch = require('node-fetch');
-
 async function testWidgetSystem() {
     console.log('🎯 Day 11 - Widget System Test\n');
     console.log('='.repeat(50));
     
     const BASE_URL = 'http://localhost:3333';
+    
+    // Dynamic import for node-fetch (ESM module)
+    const fetch = (await import('node-fetch')).default;
     
     // Test 1: Create a widget
     console.log('\n1. Creating Widget:');
