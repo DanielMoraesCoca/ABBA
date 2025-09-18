@@ -1,8 +1,9 @@
-const fetch = require('node-fetch');
-
 async function testWidgetSecurity() {
     console.log('🔒 Testing Widget Security Sandbox\n');
     console.log('='.repeat(50));
+    
+    // Dynamic import for node-fetch (ESM module)
+    const fetch = (await import('node-fetch')).default;
     
     const BASE_URL = 'http://localhost:3333';
     let widgetId, widgetKey;
