@@ -1,0 +1,815 @@
+[2025-09-19T13:15:25.328Z] API - create-agent
+Status: completed
+Duration: 41ms
+
+--------------------------------------------------
+[2025-09-19T13:17:56.185Z] API - create-agent
+Status: completed
+Duration: 50ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.092Z] API - create-agent
+Status: completed
+Duration: 147ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.110Z] API - create-agent
+Status: completed
+Duration: 132ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.123Z] API - create-agent
+Status: completed
+Duration: 121ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.136Z] API - create-agent
+Status: completed
+Duration: 109ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.149Z] API - create-agent
+Status: completed
+Duration: 98ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.162Z] API - create-agent
+Status: completed
+Duration: 86ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.175Z] API - create-agent
+Status: completed
+Duration: 74ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.191Z] API - create-agent
+Status: completed
+Duration: 60ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.206Z] API - create-agent
+Status: completed
+Duration: 46ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.222Z] API - create-agent
+Status: completed
+Duration: 33ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.316Z] API - create-agent
+Status: completed
+Duration: 536ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.329Z] API - create-agent
+Status: completed
+Duration: 525ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.341Z] API - create-agent
+Status: completed
+Duration: 514ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.351Z] API - create-agent
+Status: completed
+Duration: 505ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.361Z] API - create-agent
+Status: completed
+Duration: 496ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.370Z] API - create-agent
+Status: completed
+Duration: 488ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.380Z] API - create-agent
+Status: completed
+Duration: 479ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.389Z] API - create-agent
+Status: completed
+Duration: 472ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.397Z] API - create-agent
+Status: completed
+Duration: 465ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.405Z] API - create-agent
+Status: completed
+Duration: 464ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.418Z] API - create-agent
+Status: completed
+Duration: 453ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.428Z] API - create-agent
+Status: completed
+Duration: 443ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.437Z] API - create-agent
+Status: completed
+Duration: 436ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.447Z] API - create-agent
+Status: completed
+Duration: 427ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.457Z] API - create-agent
+Status: completed
+Duration: 418ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.468Z] API - create-agent
+Status: completed
+Duration: 409ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.480Z] API - create-agent
+Status: completed
+Duration: 397ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.491Z] API - create-agent
+Status: completed
+Duration: 387ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.502Z] API - create-agent
+Status: completed
+Duration: 378ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.514Z] API - create-agent
+Status: completed
+Duration: 368ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.525Z] API - create-agent
+Status: completed
+Duration: 357ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.539Z] API - create-agent
+Status: completed
+Duration: 344ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.552Z] API - create-agent
+Status: completed
+Duration: 333ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.564Z] API - create-agent
+Status: completed
+Duration: 321ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.579Z] API - create-agent
+Status: completed
+Duration: 307ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.593Z] API - create-agent
+Status: completed
+Duration: 294ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.606Z] API - create-agent
+Status: completed
+Duration: 283ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.626Z] API - create-agent
+Status: completed
+Duration: 267ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.638Z] API - create-agent
+Status: completed
+Duration: 256ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.650Z] API - create-agent
+Status: completed
+Duration: 245ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.662Z] API - create-agent
+Status: completed
+Duration: 235ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.671Z] API - create-agent
+Status: completed
+Duration: 226ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.680Z] API - create-agent
+Status: completed
+Duration: 219ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.689Z] API - create-agent
+Status: completed
+Duration: 211ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.698Z] API - create-agent
+Status: completed
+Duration: 203ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.707Z] API - create-agent
+Status: completed
+Duration: 195ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.716Z] API - create-agent
+Status: completed
+Duration: 187ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.725Z] API - create-agent
+Status: completed
+Duration: 180ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.734Z] API - create-agent
+Status: completed
+Duration: 172ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.743Z] API - create-agent
+Status: completed
+Duration: 164ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.750Z] API - create-agent
+Status: completed
+Duration: 158ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.758Z] API - create-agent
+Status: completed
+Duration: 150ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.766Z] API - create-agent
+Status: completed
+Duration: 143ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.777Z] API - create-agent
+Status: completed
+Duration: 134ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.788Z] API - create-agent
+Status: completed
+Duration: 124ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.799Z] API - create-agent
+Status: completed
+Duration: 113ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.810Z] API - create-agent
+Status: completed
+Duration: 104ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.820Z] API - create-agent
+Status: completed
+Duration: 96ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.830Z] API - create-agent
+Status: completed
+Duration: 87ms
+
+--------------------------------------------------
+[2025-09-19T13:18:00.841Z] API - create-agent
+Status: completed
+Duration: 76ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.134Z] API - create-agent
+Status: completed
+Duration: 810ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.145Z] API - create-agent
+Status: completed
+Duration: 800ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.156Z] API - create-agent
+Status: completed
+Duration: 790ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.166Z] API - create-agent
+Status: completed
+Duration: 780ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.176Z] API - create-agent
+Status: completed
+Duration: 772ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.185Z] API - create-agent
+Status: completed
+Duration: 763ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.194Z] API - create-agent
+Status: completed
+Duration: 755ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.202Z] API - create-agent
+Status: completed
+Duration: 748ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.212Z] API - create-agent
+Status: completed
+Duration: 740ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.220Z] API - create-agent
+Status: completed
+Duration: 732ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.228Z] API - create-agent
+Status: completed
+Duration: 725ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.235Z] API - create-agent
+Status: completed
+Duration: 718ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.243Z] API - create-agent
+Status: completed
+Duration: 712ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.250Z] API - create-agent
+Status: completed
+Duration: 706ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.258Z] API - create-agent
+Status: completed
+Duration: 698ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.267Z] API - create-agent
+Status: completed
+Duration: 690ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.278Z] API - create-agent
+Status: completed
+Duration: 681ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.288Z] API - create-agent
+Status: completed
+Duration: 876ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.300Z] API - create-agent
+Status: completed
+Duration: 865ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.311Z] API - create-agent
+Status: completed
+Duration: 855ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.322Z] API - create-agent
+Status: completed
+Duration: 845ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.333Z] API - create-agent
+Status: completed
+Duration: 835ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.344Z] API - create-agent
+Status: completed
+Duration: 825ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.355Z] API - create-agent
+Status: completed
+Duration: 815ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.366Z] API - create-agent
+Status: completed
+Duration: 805ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.377Z] API - create-agent
+Status: completed
+Duration: 795ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.389Z] API - create-agent
+Status: completed
+Duration: 784ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.399Z] API - create-agent
+Status: completed
+Duration: 775ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.410Z] API - create-agent
+Status: completed
+Duration: 765ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.422Z] API - create-agent
+Status: completed
+Duration: 754ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.432Z] API - create-agent
+Status: completed
+Duration: 745ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.442Z] API - create-agent
+Status: completed
+Duration: 736ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.462Z] API - create-agent
+Status: completed
+Duration: 717ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.454Z] API - create-agent
+Status: completed
+Duration: 727ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.472Z] API - create-agent
+Status: completed
+Duration: 709ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.482Z] API - create-agent
+Status: completed
+Duration: 702ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.491Z] API - create-agent
+Status: completed
+Duration: 694ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.500Z] API - create-agent
+Status: completed
+Duration: 686ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.509Z] API - create-agent
+Status: completed
+Duration: 677ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.518Z] API - create-agent
+Status: completed
+Duration: 669ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.528Z] API - create-agent
+Status: completed
+Duration: 660ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.537Z] API - create-agent
+Status: completed
+Duration: 652ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.547Z] API - create-agent
+Status: completed
+Duration: 644ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.556Z] API - create-agent
+Status: completed
+Duration: 636ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.564Z] API - create-agent
+Status: completed
+Duration: 628ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.573Z] API - create-agent
+Status: completed
+Duration: 621ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.581Z] API - create-agent
+Status: completed
+Duration: 613ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.590Z] API - create-agent
+Status: completed
+Duration: 604ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.598Z] API - create-agent
+Status: completed
+Duration: 598ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.607Z] API - create-agent
+Status: completed
+Duration: 589ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.643Z] API - create-agent
+Status: completed
+Duration: 562ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.654Z] API - create-agent
+Status: completed
+Duration: 552ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.631Z] API - create-agent
+Status: completed
+Duration: 575ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.665Z] API - create-agent
+Status: completed
+Duration: 543ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.676Z] API - create-agent
+Status: completed
+Duration: 532ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.698Z] API - create-agent
+Status: completed
+Duration: 513ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.687Z] API - create-agent
+Status: completed
+Duration: 522ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.720Z] API - create-agent
+Status: completed
+Duration: 491ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.731Z] API - create-agent
+Status: completed
+Duration: 481ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.709Z] API - create-agent
+Status: completed
+Duration: 502ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.743Z] API - create-agent
+Status: completed
+Duration: 470ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.766Z] API - create-agent
+Status: completed
+Duration: 450ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.776Z] API - create-agent
+Status: completed
+Duration: 440ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.785Z] API - create-agent
+Status: completed
+Duration: 432ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.755Z] API - create-agent
+Status: completed
+Duration: 460ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.803Z] API - create-agent
+Status: completed
+Duration: 416ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.795Z] API - create-agent
+Status: completed
+Duration: 424ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.822Z] API - create-agent
+Status: completed
+Duration: 399ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.831Z] API - create-agent
+Status: completed
+Duration: 392ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.813Z] API - create-agent
+Status: completed
+Duration: 408ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.839Z] API - create-agent
+Status: completed
+Duration: 384ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.847Z] API - create-agent
+Status: completed
+Duration: 376ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.856Z] API - create-agent
+Status: completed
+Duration: 369ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.866Z] API - create-agent
+Status: completed
+Duration: 359ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.875Z] API - create-agent
+Status: completed
+Duration: 351ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.883Z] API - create-agent
+Status: completed
+Duration: 344ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.892Z] API - create-agent
+Status: completed
+Duration: 336ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.901Z] API - create-agent
+Status: completed
+Duration: 327ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.910Z] API - create-agent
+Status: completed
+Duration: 320ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.917Z] API - create-agent
+Status: completed
+Duration: 313ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.925Z] API - create-agent
+Status: completed
+Duration: 306ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.933Z] API - create-agent
+Status: completed
+Duration: 299ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.965Z] API - create-agent
+Status: completed
+Duration: 295ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.986Z] API - create-agent
+Status: completed
+Duration: 276ms
+
+--------------------------------------------------
+[2025-09-19T13:18:01.995Z] API - create-agent
+Status: completed
+Duration: 268ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.003Z] API - create-agent
+Status: completed
+Duration: 259ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.013Z] API - create-agent
+Status: completed
+Duration: 251ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.022Z] API - create-agent
+Status: completed
+Duration: 243ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.032Z] API - create-agent
+Status: completed
+Duration: 234ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.042Z] API - create-agent
+Status: completed
+Duration: 224ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.053Z] API - create-agent
+Status: completed
+Duration: 214ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.064Z] API - create-agent
+Status: completed
+Duration: 203ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.075Z] API - create-agent
+Status: completed
+Duration: 194ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.085Z] API - create-agent
+Status: completed
+Duration: 184ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.097Z] API - create-agent
+Status: completed
+Duration: 174ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.109Z] API - create-agent
+Status: completed
+Duration: 162ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.121Z] API - create-agent
+Status: completed
+Duration: 152ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.132Z] API - create-agent
+Status: completed
+Duration: 142ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.142Z] API - create-agent
+Status: completed
+Duration: 132ms
+
+--------------------------------------------------
+[2025-09-19T13:18:02.153Z] API - create-agent
+Status: completed
+Duration: 122ms
+
+--------------------------------------------------
+[2025-09-19T13:18:15.063Z] API - create-agent
+Status: completed
+Duration: 50ms
+
+--------------------------------------------------

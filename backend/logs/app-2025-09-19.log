@@ -1,0 +1,437 @@
+[2025-09-19T13:13:52.425Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-19T13:13:52.435Z] [INFO] ABBA Platform Started | {"port":"3333","environment":"development","version":"0.11.0","day":11,"agents":8,"features":["logging","error-handling","professional-ui","api-gateway","websocket","webhooks","widgets"]}
+[2025-09-19T13:15:25.257Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-19T13:15:25.286Z] [INFO] ABBA Platform Started | {"port":"3333","environment":"test","version":"0.11.0","day":11,"agents":8,"features":["logging","error-handling","professional-ui","api-gateway","websocket","webhooks","widgets"]}
+[2025-09-19T13:15:25.333Z] [INFO] New agent creation request | {"description":"Test agent"}
+[2025-09-19T13:15:25.374Z] [INFO] Agent created successfully | {"name":"Assistant_5338","linesGenerated":0,"executionTime":45}
+[2025-09-19T13:15:25.468Z] [INFO] WebSocket client disconnected | {"clientId":"1d400605-d3fa-4b6e-be50-35fbb47978a4"}
+[2025-09-19T13:17:06.364Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-19T13:17:06.371Z] [INFO] ABBA Platform Started | {"port":"3333","environment":"development","version":"0.11.0","day":11,"agents":8,"features":["logging","error-handling","professional-ui","api-gateway","websocket","webhooks","widgets"]}
+[2025-09-19T13:17:56.120Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-19T13:17:56.191Z] [INFO] New agent creation request | {"description":"Test agent"}
+[2025-09-19T13:17:56.241Z] [INFO] Agent created successfully | {"name":"Assistant_6199","linesGenerated":0,"executionTime":56}
+[2025-09-19T13:17:56.321Z] [INFO] WebSocket client disconnected | {"clientId":"47673f14-803c-4d10-9926-34c4a76fc2e6"}
+[2025-09-19T13:18:00.093Z] [INFO] New agent creation request | {"description":"Test agent 0"}
+[2025-09-19T13:18:00.111Z] [INFO] New agent creation request | {"description":"Test agent 1"}
+[2025-09-19T13:18:00.123Z] [INFO] New agent creation request | {"description":"Test agent 2"}
+[2025-09-19T13:18:00.137Z] [INFO] New agent creation request | {"description":"Test agent 3"}
+[2025-09-19T13:18:00.150Z] [INFO] New agent creation request | {"description":"Test agent 4"}
+[2025-09-19T13:18:00.163Z] [INFO] New agent creation request | {"description":"Test agent 5"}
+[2025-09-19T13:18:00.176Z] [INFO] New agent creation request | {"description":"Test agent 6"}
+[2025-09-19T13:18:00.192Z] [INFO] New agent creation request | {"description":"Test agent 7"}
+[2025-09-19T13:18:00.207Z] [INFO] New agent creation request | {"description":"Test agent 8"}
+[2025-09-19T13:18:00.223Z] [INFO] New agent creation request | {"description":"Test agent 9"}
+[2025-09-19T13:18:00.256Z] [INFO] Agent created successfully | {"name":"Assistant_0097","linesGenerated":0,"executionTime":148}
+[2025-09-19T13:18:00.260Z] [INFO] Agent created successfully | {"name":"Assistant_0115","linesGenerated":0,"executionTime":133}
+[2025-09-19T13:18:00.262Z] [INFO] Agent created successfully | {"name":"Assistant_0128","linesGenerated":0,"executionTime":121}
+[2025-09-19T13:18:00.264Z] [INFO] Agent created successfully | {"name":"Assistant_0141","linesGenerated":0,"executionTime":110}
+[2025-09-19T13:18:00.266Z] [INFO] Agent created successfully | {"name":"Assistant_0154","linesGenerated":0,"executionTime":99}
+[2025-09-19T13:18:00.268Z] [INFO] Agent created successfully | {"name":"Assistant_0167","linesGenerated":0,"executionTime":87}
+[2025-09-19T13:18:00.270Z] [INFO] Agent created successfully | {"name":"Assistant_0181","linesGenerated":0,"executionTime":75}
+[2025-09-19T13:18:00.274Z] [INFO] Agent created successfully | {"name":"Assistant_0212","linesGenerated":0,"executionTime":47}
+[2025-09-19T13:18:00.272Z] [INFO] Agent created successfully | {"name":"Assistant_0197","linesGenerated":0,"executionTime":61}
+[2025-09-19T13:18:00.276Z] [INFO] Agent created successfully | {"name":"Assistant_0227","linesGenerated":0,"executionTime":33}
+[2025-09-19T13:18:00.317Z] [INFO] New agent creation request | {"description":"Test agent 0"}
+[2025-09-19T13:18:00.329Z] [INFO] New agent creation request | {"description":"Test agent 1"}
+[2025-09-19T13:18:00.341Z] [INFO] New agent creation request | {"description":"Test agent 2"}
+[2025-09-19T13:18:00.352Z] [INFO] New agent creation request | {"description":"Test agent 3"}
+[2025-09-19T13:18:00.362Z] [INFO] New agent creation request | {"description":"Test agent 4"}
+[2025-09-19T13:18:00.371Z] [INFO] New agent creation request | {"description":"Test agent 5"}
+[2025-09-19T13:18:00.381Z] [INFO] New agent creation request | {"description":"Test agent 6"}
+[2025-09-19T13:18:00.389Z] [INFO] New agent creation request | {"description":"Test agent 7"}
+[2025-09-19T13:18:00.397Z] [INFO] New agent creation request | {"description":"Test agent 8"}
+[2025-09-19T13:18:00.405Z] [INFO] New agent creation request | {"description":"Test agent 9"}
+[2025-09-19T13:18:00.418Z] [INFO] New agent creation request | {"description":"Test agent 10"}
+[2025-09-19T13:18:00.429Z] [INFO] New agent creation request | {"description":"Test agent 11"}
+[2025-09-19T13:18:00.437Z] [INFO] New agent creation request | {"description":"Test agent 12"}
+[2025-09-19T13:18:00.447Z] [INFO] New agent creation request | {"description":"Test agent 13"}
+[2025-09-19T13:18:00.458Z] [INFO] New agent creation request | {"description":"Test agent 14"}
+[2025-09-19T13:18:00.468Z] [INFO] New agent creation request | {"description":"Test agent 15"}
+[2025-09-19T13:18:00.481Z] [INFO] New agent creation request | {"description":"Test agent 16"}
+[2025-09-19T13:18:00.492Z] [INFO] New agent creation request | {"description":"Test agent 17"}
+[2025-09-19T13:18:00.503Z] [INFO] New agent creation request | {"description":"Test agent 18"}
+[2025-09-19T13:18:00.514Z] [INFO] New agent creation request | {"description":"Test agent 19"}
+[2025-09-19T13:18:00.526Z] [INFO] New agent creation request | {"description":"Test agent 20"}
+[2025-09-19T13:18:00.540Z] [INFO] New agent creation request | {"description":"Test agent 21"}
+[2025-09-19T13:18:00.553Z] [INFO] New agent creation request | {"description":"Test agent 22"}
+[2025-09-19T13:18:00.565Z] [INFO] New agent creation request | {"description":"Test agent 23"}
+[2025-09-19T13:18:00.580Z] [INFO] New agent creation request | {"description":"Test agent 24"}
+[2025-09-19T13:18:00.594Z] [INFO] New agent creation request | {"description":"Test agent 25"}
+[2025-09-19T13:18:00.606Z] [INFO] New agent creation request | {"description":"Test agent 26"}
+[2025-09-19T13:18:00.627Z] [INFO] New agent creation request | {"description":"Test agent 27"}
+[2025-09-19T13:18:00.639Z] [INFO] New agent creation request | {"description":"Test agent 28"}
+[2025-09-19T13:18:00.651Z] [INFO] New agent creation request | {"description":"Test agent 29"}
+[2025-09-19T13:18:00.663Z] [INFO] New agent creation request | {"description":"Test agent 30"}
+[2025-09-19T13:18:00.672Z] [INFO] New agent creation request | {"description":"Test agent 31"}
+[2025-09-19T13:18:00.680Z] [INFO] New agent creation request | {"description":"Test agent 32"}
+[2025-09-19T13:18:00.689Z] [INFO] New agent creation request | {"description":"Test agent 33"}
+[2025-09-19T13:18:00.698Z] [INFO] New agent creation request | {"description":"Test agent 34"}
+[2025-09-19T13:18:00.708Z] [INFO] New agent creation request | {"description":"Test agent 35"}
+[2025-09-19T13:18:00.716Z] [INFO] New agent creation request | {"description":"Test agent 36"}
+[2025-09-19T13:18:00.725Z] [INFO] New agent creation request | {"description":"Test agent 37"}
+[2025-09-19T13:18:00.734Z] [INFO] New agent creation request | {"description":"Test agent 38"}
+[2025-09-19T13:18:00.743Z] [INFO] New agent creation request | {"description":"Test agent 39"}
+[2025-09-19T13:18:00.750Z] [INFO] New agent creation request | {"description":"Test agent 40"}
+[2025-09-19T13:18:00.759Z] [INFO] New agent creation request | {"description":"Test agent 41"}
+[2025-09-19T13:18:00.767Z] [INFO] New agent creation request | {"description":"Test agent 42"}
+[2025-09-19T13:18:00.778Z] [INFO] New agent creation request | {"description":"Test agent 43"}
+[2025-09-19T13:18:00.789Z] [INFO] New agent creation request | {"description":"Test agent 44"}
+[2025-09-19T13:18:00.800Z] [INFO] New agent creation request | {"description":"Test agent 45"}
+[2025-09-19T13:18:00.811Z] [INFO] New agent creation request | {"description":"Test agent 46"}
+[2025-09-19T13:18:00.820Z] [INFO] New agent creation request | {"description":"Test agent 47"}
+[2025-09-19T13:18:00.831Z] [INFO] New agent creation request | {"description":"Test agent 48"}
+[2025-09-19T13:18:00.842Z] [INFO] New agent creation request | {"description":"Test agent 49"}
+[2025-09-19T13:18:00.918Z] [INFO] Agent created successfully | {"name":"Assistant_0321","linesGenerated":0,"executionTime":537}
+[2025-09-19T13:18:00.920Z] [INFO] Agent created successfully | {"name":"Assistant_0333","linesGenerated":0,"executionTime":525}
+[2025-09-19T13:18:00.922Z] [INFO] Agent created successfully | {"name":"Assistant_0345","linesGenerated":0,"executionTime":514}
+[2025-09-19T13:18:00.924Z] [INFO] Agent created successfully | {"name":"Assistant_0355","linesGenerated":0,"executionTime":506}
+[2025-09-19T13:18:00.926Z] [INFO] Agent created successfully | {"name":"Assistant_0365","linesGenerated":0,"executionTime":497}
+[2025-09-19T13:18:00.928Z] [INFO] Agent created successfully | {"name":"Assistant_0375","linesGenerated":0,"executionTime":489}
+[2025-09-19T13:18:00.929Z] [INFO] Agent created successfully | {"name":"Assistant_0383","linesGenerated":0,"executionTime":480}
+[2025-09-19T13:18:00.967Z] [INFO] Agent created successfully | {"name":"Assistant_0392","linesGenerated":0,"executionTime":472}
+[2025-09-19T13:18:00.969Z] [INFO] Agent created successfully | {"name":"Assistant_0400","linesGenerated":0,"executionTime":465}
+[2025-09-19T13:18:00.983Z] [INFO] Agent created successfully | {"name":"Assistant_0408","linesGenerated":0,"executionTime":464}
+[2025-09-19T13:18:00.986Z] [INFO] Agent created successfully | {"name":"Assistant_0422","linesGenerated":0,"executionTime":453}
+[2025-09-19T13:18:00.988Z] [INFO] Agent created successfully | {"name":"Assistant_0431","linesGenerated":0,"executionTime":444}
+[2025-09-19T13:18:00.990Z] [INFO] Agent created successfully | {"name":"Assistant_0441","linesGenerated":0,"executionTime":436}
+[2025-09-19T13:18:00.991Z] [INFO] Agent created successfully | {"name":"Assistant_0451","linesGenerated":0,"executionTime":427}
+[2025-09-19T13:18:00.993Z] [INFO] Agent created successfully | {"name":"Assistant_0461","linesGenerated":0,"executionTime":419}
+[2025-09-19T13:18:00.994Z] [INFO] Agent created successfully | {"name":"Assistant_0473","linesGenerated":0,"executionTime":409}
+[2025-09-19T13:18:00.995Z] [INFO] Agent created successfully | {"name":"Assistant_0484","linesGenerated":0,"executionTime":398}
+[2025-09-19T13:18:00.997Z] [INFO] Agent created successfully | {"name":"Assistant_0495","linesGenerated":0,"executionTime":388}
+[2025-09-19T13:18:00.999Z] [INFO] Agent created successfully | {"name":"Assistant_0507","linesGenerated":0,"executionTime":379}
+[2025-09-19T13:18:01.001Z] [INFO] Agent created successfully | {"name":"Assistant_0518","linesGenerated":0,"executionTime":368}
+[2025-09-19T13:18:01.003Z] [INFO] Agent created successfully | {"name":"Assistant_0531","linesGenerated":0,"executionTime":358}
+[2025-09-19T13:18:01.005Z] [INFO] Agent created successfully | {"name":"Assistant_0544","linesGenerated":0,"executionTime":345}
+[2025-09-19T13:18:01.013Z] [INFO] Agent created successfully | {"name":"Assistant_0557","linesGenerated":0,"executionTime":333}
+[2025-09-19T13:18:01.018Z] [INFO] Agent created successfully | {"name":"Assistant_0570","linesGenerated":0,"executionTime":322}
+[2025-09-19T13:18:01.021Z] [INFO] Agent created successfully | {"name":"Assistant_0585","linesGenerated":0,"executionTime":308}
+[2025-09-19T13:18:01.023Z] [INFO] Agent created successfully | {"name":"Assistant_0598","linesGenerated":0,"executionTime":295}
+[2025-09-19T13:18:01.025Z] [INFO] Agent created successfully | {"name":"Assistant_0610","linesGenerated":0,"executionTime":283}
+[2025-09-19T13:18:01.029Z] [INFO] Agent created successfully | {"name":"Assistant_0631","linesGenerated":0,"executionTime":268}
+[2025-09-19T13:18:01.031Z] [INFO] Agent created successfully | {"name":"Assistant_0643","linesGenerated":0,"executionTime":257}
+[2025-09-19T13:18:01.033Z] [INFO] Agent created successfully | {"name":"Assistant_0655","linesGenerated":0,"executionTime":246}
+[2025-09-19T13:18:01.035Z] [INFO] Agent created successfully | {"name":"Assistant_0666","linesGenerated":0,"executionTime":235}
+[2025-09-19T13:18:01.037Z] [INFO] Agent created successfully | {"name":"Assistant_0675","linesGenerated":0,"executionTime":227}
+[2025-09-19T13:18:01.039Z] [INFO] Agent created successfully | {"name":"Assistant_0683","linesGenerated":0,"executionTime":219}
+[2025-09-19T13:18:01.041Z] [INFO] Agent created successfully | {"name":"Assistant_0692","linesGenerated":0,"executionTime":211}
+[2025-09-19T13:18:01.043Z] [INFO] Agent created successfully | {"name":"Assistant_0701","linesGenerated":0,"executionTime":203}
+[2025-09-19T13:18:01.045Z] [INFO] Agent created successfully | {"name":"Assistant_0711","linesGenerated":0,"executionTime":195}
+[2025-09-19T13:18:01.047Z] [INFO] Agent created successfully | {"name":"Assistant_0719","linesGenerated":0,"executionTime":187}
+[2025-09-19T13:18:01.048Z] [INFO] Agent created successfully | {"name":"Assistant_0729","linesGenerated":0,"executionTime":180}
+[2025-09-19T13:18:01.050Z] [INFO] Agent created successfully | {"name":"Assistant_0738","linesGenerated":0,"executionTime":172}
+[2025-09-19T13:18:01.052Z] [INFO] Agent created successfully | {"name":"Assistant_0746","linesGenerated":0,"executionTime":164}
+[2025-09-19T13:18:01.053Z] [INFO] Agent created successfully | {"name":"Assistant_0753","linesGenerated":0,"executionTime":158}
+[2025-09-19T13:18:01.055Z] [INFO] Agent created successfully | {"name":"Assistant_0762","linesGenerated":0,"executionTime":151}
+[2025-09-19T13:18:01.056Z] [INFO] Agent created successfully | {"name":"Assistant_0770","linesGenerated":0,"executionTime":144}
+[2025-09-19T13:18:01.058Z] [INFO] Agent created successfully | {"name":"Assistant_0781","linesGenerated":0,"executionTime":134}
+[2025-09-19T13:18:01.060Z] [INFO] Agent created successfully | {"name":"Assistant_0792","linesGenerated":0,"executionTime":124}
+[2025-09-19T13:18:01.062Z] [INFO] Agent created successfully | {"name":"Assistant_0804","linesGenerated":0,"executionTime":114}
+[2025-09-19T13:18:01.064Z] [INFO] Agent created successfully | {"name":"Assistant_0814","linesGenerated":0,"executionTime":105}
+[2025-09-19T13:18:01.067Z] [INFO] Agent created successfully | {"name":"Assistant_0824","linesGenerated":0,"executionTime":96}
+[2025-09-19T13:18:01.069Z] [INFO] Agent created successfully | {"name":"Assistant_0834","linesGenerated":0,"executionTime":87}
+[2025-09-19T13:18:01.071Z] [INFO] Agent created successfully | {"name":"Assistant_0846","linesGenerated":0,"executionTime":77}
+[2025-09-19T13:18:01.135Z] [INFO] New agent creation request | {"description":"Test agent 0"}
+[2025-09-19T13:18:01.146Z] [INFO] New agent creation request | {"description":"Test agent 1"}
+[2025-09-19T13:18:01.156Z] [INFO] New agent creation request | {"description":"Test agent 2"}
+[2025-09-19T13:18:01.167Z] [INFO] New agent creation request | {"description":"Test agent 3"}
+[2025-09-19T13:18:01.176Z] [INFO] New agent creation request | {"description":"Test agent 4"}
+[2025-09-19T13:18:01.186Z] [INFO] New agent creation request | {"description":"Test agent 5"}
+[2025-09-19T13:18:01.195Z] [INFO] New agent creation request | {"description":"Test agent 6"}
+[2025-09-19T13:18:01.203Z] [INFO] New agent creation request | {"description":"Test agent 7"}
+[2025-09-19T13:18:01.212Z] [INFO] New agent creation request | {"description":"Test agent 8"}
+[2025-09-19T13:18:01.220Z] [INFO] New agent creation request | {"description":"Test agent 9"}
+[2025-09-19T13:18:01.228Z] [INFO] New agent creation request | {"description":"Test agent 10"}
+[2025-09-19T13:18:01.236Z] [INFO] New agent creation request | {"description":"Test agent 11"}
+[2025-09-19T13:18:01.243Z] [INFO] New agent creation request | {"description":"Test agent 12"}
+[2025-09-19T13:18:01.250Z] [INFO] New agent creation request | {"description":"Test agent 13"}
+[2025-09-19T13:18:01.259Z] [INFO] New agent creation request | {"description":"Test agent 14"}
+[2025-09-19T13:18:01.268Z] [INFO] New agent creation request | {"description":"Test agent 15"}
+[2025-09-19T13:18:01.278Z] [INFO] New agent creation request | {"description":"Test agent 16"}
+[2025-09-19T13:18:01.289Z] [INFO] New agent creation request | {"description":"Test agent 17"}
+[2025-09-19T13:18:01.301Z] [INFO] New agent creation request | {"description":"Test agent 18"}
+[2025-09-19T13:18:01.312Z] [INFO] New agent creation request | {"description":"Test agent 19"}
+[2025-09-19T13:18:01.323Z] [INFO] New agent creation request | {"description":"Test agent 20"}
+[2025-09-19T13:18:01.334Z] [INFO] New agent creation request | {"description":"Test agent 21"}
+[2025-09-19T13:18:01.345Z] [INFO] New agent creation request | {"description":"Test agent 22"}
+[2025-09-19T13:18:01.356Z] [INFO] New agent creation request | {"description":"Test agent 23"}
+[2025-09-19T13:18:01.367Z] [INFO] New agent creation request | {"description":"Test agent 24"}
+[2025-09-19T13:18:01.378Z] [INFO] New agent creation request | {"description":"Test agent 25"}
+[2025-09-19T13:18:01.390Z] [INFO] New agent creation request | {"description":"Test agent 26"}
+[2025-09-19T13:18:01.400Z] [INFO] New agent creation request | {"description":"Test agent 27"}
+[2025-09-19T13:18:01.411Z] [INFO] New agent creation request | {"description":"Test agent 28"}
+[2025-09-19T13:18:01.423Z] [INFO] New agent creation request | {"description":"Test agent 29"}
+[2025-09-19T13:18:01.433Z] [INFO] New agent creation request | {"description":"Test agent 30"}
+[2025-09-19T13:18:01.444Z] [INFO] New agent creation request | {"description":"Test agent 31"}
+[2025-09-19T13:18:01.454Z] [INFO] New agent creation request | {"description":"Test agent 32"}
+[2025-09-19T13:18:01.463Z] [INFO] New agent creation request | {"description":"Test agent 33"}
+[2025-09-19T13:18:01.473Z] [INFO] New agent creation request | {"description":"Test agent 34"}
+[2025-09-19T13:18:01.482Z] [INFO] New agent creation request | {"description":"Test agent 35"}
+[2025-09-19T13:18:01.491Z] [INFO] New agent creation request | {"description":"Test agent 36"}
+[2025-09-19T13:18:01.501Z] [INFO] New agent creation request | {"description":"Test agent 37"}
+[2025-09-19T13:18:01.510Z] [INFO] New agent creation request | {"description":"Test agent 38"}
+[2025-09-19T13:18:01.519Z] [INFO] New agent creation request | {"description":"Test agent 39"}
+[2025-09-19T13:18:01.529Z] [INFO] New agent creation request | {"description":"Test agent 40"}
+[2025-09-19T13:18:01.538Z] [INFO] New agent creation request | {"description":"Test agent 41"}
+[2025-09-19T13:18:01.547Z] [INFO] New agent creation request | {"description":"Test agent 42"}
+[2025-09-19T13:18:01.556Z] [INFO] New agent creation request | {"description":"Test agent 43"}
+[2025-09-19T13:18:01.565Z] [INFO] New agent creation request | {"description":"Test agent 44"}
+[2025-09-19T13:18:01.574Z] [INFO] New agent creation request | {"description":"Test agent 45"}
+[2025-09-19T13:18:01.581Z] [INFO] New agent creation request | {"description":"Test agent 46"}
+[2025-09-19T13:18:01.591Z] [INFO] New agent creation request | {"description":"Test agent 47"}
+[2025-09-19T13:18:01.598Z] [INFO] New agent creation request | {"description":"Test agent 48"}
+[2025-09-19T13:18:01.608Z] [INFO] New agent creation request | {"description":"Test agent 49"}
+[2025-09-19T13:18:01.632Z] [INFO] New agent creation request | {"description":"Test agent 50"}
+[2025-09-19T13:18:01.644Z] [INFO] New agent creation request | {"description":"Test agent 51"}
+[2025-09-19T13:18:01.655Z] [INFO] New agent creation request | {"description":"Test agent 52"}
+[2025-09-19T13:18:01.666Z] [INFO] New agent creation request | {"description":"Test agent 53"}
+[2025-09-19T13:18:01.677Z] [INFO] New agent creation request | {"description":"Test agent 54"}
+[2025-09-19T13:18:01.688Z] [INFO] New agent creation request | {"description":"Test agent 55"}
+[2025-09-19T13:18:01.699Z] [INFO] New agent creation request | {"description":"Test agent 56"}
+[2025-09-19T13:18:01.710Z] [INFO] New agent creation request | {"description":"Test agent 57"}
+[2025-09-19T13:18:01.721Z] [INFO] New agent creation request | {"description":"Test agent 58"}
+[2025-09-19T13:18:01.732Z] [INFO] New agent creation request | {"description":"Test agent 59"}
+[2025-09-19T13:18:01.744Z] [INFO] New agent creation request | {"description":"Test agent 60"}
+[2025-09-19T13:18:01.756Z] [INFO] New agent creation request | {"description":"Test agent 61"}
+[2025-09-19T13:18:01.767Z] [INFO] New agent creation request | {"description":"Test agent 62"}
+[2025-09-19T13:18:01.777Z] [INFO] New agent creation request | {"description":"Test agent 63"}
+[2025-09-19T13:18:01.786Z] [INFO] New agent creation request | {"description":"Test agent 64"}
+[2025-09-19T13:18:01.795Z] [INFO] New agent creation request | {"description":"Test agent 65"}
+[2025-09-19T13:18:01.804Z] [INFO] New agent creation request | {"description":"Test agent 66"}
+[2025-09-19T13:18:01.813Z] [INFO] New agent creation request | {"description":"Test agent 67"}
+[2025-09-19T13:18:01.823Z] [INFO] New agent creation request | {"description":"Test agent 68"}
+[2025-09-19T13:18:01.831Z] [INFO] New agent creation request | {"description":"Test agent 69"}
+[2025-09-19T13:18:01.840Z] [INFO] New agent creation request | {"description":"Test agent 70"}
+[2025-09-19T13:18:01.848Z] [INFO] New agent creation request | {"description":"Test agent 71"}
+[2025-09-19T13:18:01.856Z] [INFO] New agent creation request | {"description":"Test agent 72"}
+[2025-09-19T13:18:01.867Z] [INFO] New agent creation request | {"description":"Test agent 73"}
+[2025-09-19T13:18:01.876Z] [INFO] New agent creation request | {"description":"Test agent 74"}
+[2025-09-19T13:18:01.884Z] [INFO] New agent creation request | {"description":"Test agent 75"}
+[2025-09-19T13:18:01.893Z] [INFO] New agent creation request | {"description":"Test agent 76"}
+[2025-09-19T13:18:01.902Z] [INFO] New agent creation request | {"description":"Test agent 77"}
+[2025-09-19T13:18:01.910Z] [INFO] New agent creation request | {"description":"Test agent 78"}
+[2025-09-19T13:18:01.918Z] [INFO] New agent creation request | {"description":"Test agent 79"}
+[2025-09-19T13:18:01.926Z] [INFO] New agent creation request | {"description":"Test agent 80"}
+[2025-09-19T13:18:01.933Z] [INFO] New agent creation request | {"description":"Test agent 81"}
+[2025-09-19T13:18:01.966Z] [INFO] New agent creation request | {"description":"Test agent 82"}
+[2025-09-19T13:18:01.986Z] [INFO] New agent creation request | {"description":"Test agent 83"}
+[2025-09-19T13:18:01.995Z] [INFO] New agent creation request | {"description":"Test agent 84"}
+[2025-09-19T13:18:02.004Z] [INFO] New agent creation request | {"description":"Test agent 85"}
+[2025-09-19T13:18:02.013Z] [INFO] New agent creation request | {"description":"Test agent 86"}
+[2025-09-19T13:18:02.022Z] [INFO] New agent creation request | {"description":"Test agent 87"}
+[2025-09-19T13:18:02.032Z] [INFO] New agent creation request | {"description":"Test agent 88"}
+[2025-09-19T13:18:02.043Z] [INFO] New agent creation request | {"description":"Test agent 89"}
+[2025-09-19T13:18:02.054Z] [INFO] New agent creation request | {"description":"Test agent 90"}
+[2025-09-19T13:18:02.065Z] [INFO] New agent creation request | {"description":"Test agent 91"}
+[2025-09-19T13:18:02.076Z] [INFO] New agent creation request | {"description":"Test agent 92"}
+[2025-09-19T13:18:02.086Z] [INFO] New agent creation request | {"description":"Test agent 93"}
+[2025-09-19T13:18:02.098Z] [INFO] New agent creation request | {"description":"Test agent 94"}
+[2025-09-19T13:18:02.110Z] [INFO] New agent creation request | {"description":"Test agent 95"}
+[2025-09-19T13:18:02.122Z] [INFO] New agent creation request | {"description":"Test agent 96"}
+[2025-09-19T13:18:02.132Z] [INFO] New agent creation request | {"description":"Test agent 97"}
+[2025-09-19T13:18:02.143Z] [INFO] New agent creation request | {"description":"Test agent 98"}
+[2025-09-19T13:18:02.154Z] [INFO] New agent creation request | {"description":"Test agent 99"}
+[2025-09-19T13:18:02.234Z] [INFO] Agent created successfully | {"name":"Assistant_1138","linesGenerated":0,"executionTime":811}
+[2025-09-19T13:18:02.235Z] [INFO] Agent created successfully | {"name":"Assistant_1149","linesGenerated":0,"executionTime":801}
+[2025-09-19T13:18:02.237Z] [INFO] Agent created successfully | {"name":"Assistant_1160","linesGenerated":0,"executionTime":790}
+[2025-09-19T13:18:02.238Z] [INFO] Agent created successfully | {"name":"Assistant_1170","linesGenerated":0,"executionTime":781}
+[2025-09-19T13:18:02.240Z] [INFO] Agent created successfully | {"name":"Assistant_1179","linesGenerated":0,"executionTime":772}
+[2025-09-19T13:18:02.241Z] [INFO] Agent created successfully | {"name":"Assistant_1189","linesGenerated":0,"executionTime":764}
+[2025-09-19T13:18:02.243Z] [INFO] Agent created successfully | {"name":"Assistant_1197","linesGenerated":0,"executionTime":756}
+[2025-09-19T13:18:02.244Z] [INFO] Agent created successfully | {"name":"Assistant_1206","linesGenerated":0,"executionTime":749}
+[2025-09-19T13:18:02.245Z] [INFO] Agent created successfully | {"name":"Assistant_1215","linesGenerated":0,"executionTime":740}
+[2025-09-19T13:18:02.247Z] [INFO] Agent created successfully | {"name":"Assistant_1223","linesGenerated":0,"executionTime":732}
+[2025-09-19T13:18:02.248Z] [INFO] Agent created successfully | {"name":"Assistant_1231","linesGenerated":0,"executionTime":725}
+[2025-09-19T13:18:02.249Z] [INFO] Agent created successfully | {"name":"Assistant_1238","linesGenerated":0,"executionTime":719}
+[2025-09-19T13:18:02.251Z] [INFO] Agent created successfully | {"name":"Assistant_1245","linesGenerated":0,"executionTime":712}
+[2025-09-19T13:18:02.252Z] [INFO] Agent created successfully | {"name":"Assistant_1253","linesGenerated":0,"executionTime":706}
+[2025-09-19T13:18:02.253Z] [INFO] Agent created successfully | {"name":"Assistant_1262","linesGenerated":0,"executionTime":699}
+[2025-09-19T13:18:02.255Z] [INFO] Agent created successfully | {"name":"Assistant_1272","linesGenerated":0,"executionTime":691}
+[2025-09-19T13:18:02.256Z] [INFO] Agent created successfully | {"name":"Assistant_1282","linesGenerated":0,"executionTime":681}
+[2025-09-19T13:18:02.276Z] [INFO] Agent created successfully | {"name":"Assistant_1292","linesGenerated":0,"executionTime":876}
+[2025-09-19T13:18:02.278Z] [INFO] Agent created successfully | {"name":"Assistant_1305","linesGenerated":0,"executionTime":866}
+[2025-09-19T13:18:02.279Z] [INFO] Agent created successfully | {"name":"Assistant_1326","linesGenerated":0,"executionTime":846}
+[2025-09-19T13:18:02.280Z] [INFO] Agent created successfully | {"name":"Assistant_1316","linesGenerated":0,"executionTime":856}
+[2025-09-19T13:18:02.281Z] [INFO] Agent created successfully | {"name":"Assistant_1338","linesGenerated":0,"executionTime":836}
+[2025-09-19T13:18:02.282Z] [INFO] Agent created successfully | {"name":"Assistant_1349","linesGenerated":0,"executionTime":826}
+[2025-09-19T13:18:02.283Z] [INFO] Agent created successfully | {"name":"Assistant_1360","linesGenerated":0,"executionTime":816}
+[2025-09-19T13:18:02.284Z] [INFO] Agent created successfully | {"name":"Assistant_1371","linesGenerated":0,"executionTime":806}
+[2025-09-19T13:18:02.286Z] [INFO] Agent created successfully | {"name":"Assistant_1382","linesGenerated":0,"executionTime":796}
+[2025-09-19T13:18:02.288Z] [INFO] Agent created successfully | {"name":"Assistant_1394","linesGenerated":0,"executionTime":785}
+[2025-09-19T13:18:02.289Z] [INFO] Agent created successfully | {"name":"Assistant_1404","linesGenerated":0,"executionTime":776}
+[2025-09-19T13:18:02.291Z] [INFO] Agent created successfully | {"name":"Assistant_1415","linesGenerated":0,"executionTime":766}
+[2025-09-19T13:18:02.292Z] [INFO] Agent created successfully | {"name":"Assistant_1426","linesGenerated":0,"executionTime":755}
+[2025-09-19T13:18:02.293Z] [INFO] Agent created successfully | {"name":"Assistant_1436","linesGenerated":0,"executionTime":746}
+[2025-09-19T13:18:02.294Z] [INFO] Agent created successfully | {"name":"Assistant_1447","linesGenerated":0,"executionTime":737}
+[2025-09-19T13:18:02.296Z] [INFO] Agent created successfully | {"name":"Assistant_1466","linesGenerated":0,"executionTime":718}
+[2025-09-19T13:18:02.297Z] [INFO] Agent created successfully | {"name":"Assistant_1457","linesGenerated":0,"executionTime":727}
+[2025-09-19T13:18:02.298Z] [INFO] Agent created successfully | {"name":"Assistant_1476","linesGenerated":0,"executionTime":710}
+[2025-09-19T13:18:02.300Z] [INFO] Agent created successfully | {"name":"Assistant_1485","linesGenerated":0,"executionTime":702}
+[2025-09-19T13:18:02.301Z] [INFO] Agent created successfully | {"name":"Assistant_1494","linesGenerated":0,"executionTime":694}
+[2025-09-19T13:18:02.303Z] [INFO] Agent created successfully | {"name":"Assistant_1513","linesGenerated":0,"executionTime":678}
+[2025-09-19T13:18:02.304Z] [INFO] Agent created successfully | {"name":"Assistant_1504","linesGenerated":0,"executionTime":686}
+[2025-09-19T13:18:02.305Z] [INFO] Agent created successfully | {"name":"Assistant_1522","linesGenerated":0,"executionTime":670}
+[2025-09-19T13:18:02.307Z] [INFO] Agent created successfully | {"name":"Assistant_1532","linesGenerated":0,"executionTime":661}
+[2025-09-19T13:18:02.308Z] [INFO] Agent created successfully | {"name":"Assistant_1541","linesGenerated":0,"executionTime":653}
+[2025-09-19T13:18:02.309Z] [INFO] Agent created successfully | {"name":"Assistant_1550","linesGenerated":0,"executionTime":644}
+[2025-09-19T13:18:02.311Z] [INFO] Agent created successfully | {"name":"Assistant_1559","linesGenerated":0,"executionTime":636}
+[2025-09-19T13:18:02.312Z] [INFO] Agent created successfully | {"name":"Assistant_1567","linesGenerated":0,"executionTime":629}
+[2025-09-19T13:18:02.313Z] [INFO] Agent created successfully | {"name":"Assistant_1576","linesGenerated":0,"executionTime":621}
+[2025-09-19T13:18:02.314Z] [INFO] Agent created successfully | {"name":"Assistant_1584","linesGenerated":0,"executionTime":613}
+[2025-09-19T13:18:02.315Z] [INFO] Agent created successfully | {"name":"Assistant_1593","linesGenerated":0,"executionTime":605}
+[2025-09-19T13:18:02.318Z] [INFO] Agent created successfully | {"name":"Assistant_1601","linesGenerated":0,"executionTime":598}
+[2025-09-19T13:18:02.320Z] [INFO] Agent created successfully | {"name":"Assistant_1611","linesGenerated":0,"executionTime":590}
+[2025-09-19T13:18:02.327Z] [INFO] Agent created successfully | {"name":"Assistant_1647","linesGenerated":0,"executionTime":562}
+[2025-09-19T13:18:02.329Z] [INFO] Agent created successfully | {"name":"Assistant_1658","linesGenerated":0,"executionTime":552}
+[2025-09-19T13:18:02.332Z] [INFO] Agent created successfully | {"name":"Assistant_1669","linesGenerated":0,"executionTime":543}
+[2025-09-19T13:18:02.330Z] [INFO] Agent created successfully | {"name":"Assistant_1636","linesGenerated":0,"executionTime":576}
+[2025-09-19T13:18:02.333Z] [INFO] Agent created successfully | {"name":"Assistant_1681","linesGenerated":0,"executionTime":533}
+[2025-09-19T13:18:02.335Z] [INFO] Agent created successfully | {"name":"Assistant_1702","linesGenerated":0,"executionTime":513}
+[2025-09-19T13:18:02.337Z] [INFO] Agent created successfully | {"name":"Assistant_1691","linesGenerated":0,"executionTime":523}
+[2025-09-19T13:18:02.340Z] [INFO] Agent created successfully | {"name":"Assistant_1736","linesGenerated":0,"executionTime":482}
+[2025-09-19T13:18:02.338Z] [INFO] Agent created successfully | {"name":"Assistant_1725","linesGenerated":0,"executionTime":492}
+[2025-09-19T13:18:02.345Z] [INFO] Agent created successfully | {"name":"Assistant_1770","linesGenerated":0,"executionTime":450}
+[2025-09-19T13:18:02.343Z] [INFO] Agent created successfully | {"name":"Assistant_1748","linesGenerated":0,"executionTime":471}
+[2025-09-19T13:18:02.346Z] [INFO] Agent created successfully | {"name":"Assistant_1780","linesGenerated":0,"executionTime":441}
+[2025-09-19T13:18:02.341Z] [INFO] Agent created successfully | {"name":"Assistant_1713","linesGenerated":0,"executionTime":503}
+[2025-09-19T13:18:02.348Z] [INFO] Agent created successfully | {"name":"Assistant_1789","linesGenerated":0,"executionTime":433}
+[2025-09-19T13:18:02.353Z] [INFO] Agent created successfully | {"name":"Assistant_1798","linesGenerated":0,"executionTime":424}
+[2025-09-19T13:18:02.350Z] [INFO] Agent created successfully | {"name":"Assistant_1759","linesGenerated":0,"executionTime":460}
+[2025-09-19T13:18:02.351Z] [INFO] Agent created successfully | {"name":"Assistant_1807","linesGenerated":0,"executionTime":417}
+[2025-09-19T13:18:02.356Z] [INFO] Agent created successfully | {"name":"Assistant_1834","linesGenerated":0,"executionTime":392}
+[2025-09-19T13:18:02.359Z] [INFO] Agent created successfully | {"name":"Assistant_1843","linesGenerated":0,"executionTime":385}
+[2025-09-19T13:18:02.354Z] [INFO] Agent created successfully | {"name":"Assistant_1826","linesGenerated":0,"executionTime":400}
+[2025-09-19T13:18:02.361Z] [INFO] Agent created successfully | {"name":"Assistant_1861","linesGenerated":0,"executionTime":369}
+[2025-09-19T13:18:02.360Z] [INFO] Agent created successfully | {"name":"Assistant_1850","linesGenerated":0,"executionTime":377}
+[2025-09-19T13:18:02.363Z] [INFO] Agent created successfully | {"name":"Assistant_1878","linesGenerated":0,"executionTime":352}
+[2025-09-19T13:18:02.357Z] [INFO] Agent created successfully | {"name":"Assistant_1816","linesGenerated":0,"executionTime":408}
+[2025-09-19T13:18:02.362Z] [INFO] Agent created successfully | {"name":"Assistant_1870","linesGenerated":0,"executionTime":360}
+[2025-09-19T13:18:02.364Z] [INFO] Agent created successfully | {"name":"Assistant_1887","linesGenerated":0,"executionTime":345}
+[2025-09-19T13:18:02.365Z] [INFO] Agent created successfully | {"name":"Assistant_1896","linesGenerated":0,"executionTime":337}
+[2025-09-19T13:18:02.367Z] [INFO] Agent created successfully | {"name":"Assistant_1905","linesGenerated":0,"executionTime":328}
+[2025-09-19T13:18:02.368Z] [INFO] Agent created successfully | {"name":"Assistant_1913","linesGenerated":0,"executionTime":320}
+[2025-09-19T13:18:02.369Z] [INFO] Agent created successfully | {"name":"Assistant_1921","linesGenerated":0,"executionTime":314}
+[2025-09-19T13:18:02.371Z] [INFO] Agent created successfully | {"name":"Assistant_1929","linesGenerated":0,"executionTime":307}
+[2025-09-19T13:18:02.372Z] [INFO] Agent created successfully | {"name":"Assistant_1936","linesGenerated":0,"executionTime":299}
+[2025-09-19T13:18:02.377Z] [INFO] Agent created successfully | {"name":"Assistant_1975","linesGenerated":0,"executionTime":296}
+[2025-09-19T13:18:02.379Z] [INFO] Agent created successfully | {"name":"Assistant_1989","linesGenerated":0,"executionTime":276}
+[2025-09-19T13:18:02.380Z] [INFO] Agent created successfully | {"name":"Assistant_1997","linesGenerated":0,"executionTime":268}
+[2025-09-19T13:18:02.381Z] [INFO] Agent created successfully | {"name":"Assistant_2016","linesGenerated":0,"executionTime":251}
+[2025-09-19T13:18:02.383Z] [INFO] Agent created successfully | {"name":"Assistant_2007","linesGenerated":0,"executionTime":260}
+[2025-09-19T13:18:02.384Z] [INFO] Agent created successfully | {"name":"Assistant_2026","linesGenerated":0,"executionTime":243}
+[2025-09-19T13:18:02.386Z] [INFO] Agent created successfully | {"name":"Assistant_2036","linesGenerated":0,"executionTime":234}
+[2025-09-19T13:18:02.388Z] [INFO] Agent created successfully | {"name":"Assistant_2047","linesGenerated":0,"executionTime":225}
+[2025-09-19T13:18:02.389Z] [INFO] Agent created successfully | {"name":"Assistant_2057","linesGenerated":0,"executionTime":215}
+[2025-09-19T13:18:02.390Z] [INFO] Agent created successfully | {"name":"Assistant_2068","linesGenerated":0,"executionTime":204}
+[2025-09-19T13:18:02.392Z] [INFO] Agent created successfully | {"name":"Assistant_2079","linesGenerated":0,"executionTime":194}
+[2025-09-19T13:18:02.393Z] [INFO] Agent created successfully | {"name":"Assistant_2089","linesGenerated":0,"executionTime":185}
+[2025-09-19T13:18:02.394Z] [INFO] Agent created successfully | {"name":"Assistant_2102","linesGenerated":0,"executionTime":174}
+[2025-09-19T13:18:02.396Z] [INFO] Agent created successfully | {"name":"Assistant_2113","linesGenerated":0,"executionTime":163}
+[2025-09-19T13:18:02.398Z] [INFO] Agent created successfully | {"name":"Assistant_2125","linesGenerated":0,"executionTime":152}
+[2025-09-19T13:18:02.399Z] [INFO] Agent created successfully | {"name":"Assistant_2136","linesGenerated":0,"executionTime":142}
+[2025-09-19T13:18:02.401Z] [INFO] Agent created successfully | {"name":"Assistant_2147","linesGenerated":0,"executionTime":133}
+[2025-09-19T13:18:02.402Z] [INFO] Agent created successfully | {"name":"Assistant_2157","linesGenerated":0,"executionTime":123}
+[2025-09-19T13:18:08.092Z] [INFO] WebSocket client disconnected | {"clientId":"b9460812-da4e-410c-b6b7-1351afa05102"}
+[2025-09-19T13:18:08.093Z] [INFO] WebSocket client disconnected | {"clientId":"c7ccb4c5-83d6-41c3-be67-8964272fc207"}
+[2025-09-19T13:18:08.095Z] [INFO] WebSocket client disconnected | {"clientId":"ff4af8db-0c97-461e-a8ee-5d30c3b09b8d"}
+[2025-09-19T13:18:08.096Z] [INFO] WebSocket client disconnected | {"clientId":"2f1faebe-c6b3-4425-a188-12df39901a1c"}
+[2025-09-19T13:18:08.097Z] [INFO] WebSocket client disconnected | {"clientId":"34ce80b1-ae65-440a-abc2-c87181828dff"}
+[2025-09-19T13:18:08.098Z] [INFO] WebSocket client disconnected | {"clientId":"670a7114-5c4c-4ca5-b1a5-84973788de09"}
+[2025-09-19T13:18:08.099Z] [INFO] WebSocket client disconnected | {"clientId":"67b66f3a-46aa-4080-96b1-adac4086a893"}
+[2025-09-19T13:18:08.102Z] [INFO] WebSocket client disconnected | {"clientId":"47034d6c-d2b4-4d60-b0fc-625c741efdfd"}
+[2025-09-19T13:18:08.103Z] [INFO] WebSocket client disconnected | {"clientId":"5594ec8a-4533-45d7-ae72-d51c62e57e7e"}
+[2025-09-19T13:18:08.104Z] [INFO] WebSocket client disconnected | {"clientId":"4365efa4-6b5f-4df7-a615-0595262d0425"}
+[2025-09-19T13:18:08.106Z] [INFO] WebSocket client disconnected | {"clientId":"ed1a0476-5e22-4fb2-a188-ec8c44a704a7"}
+[2025-09-19T13:18:08.107Z] [INFO] WebSocket client disconnected | {"clientId":"31eac67b-4d34-4a36-8bc6-99dc1be0a66e"}
+[2025-09-19T13:18:08.106Z] [INFO] WebSocket client disconnected | {"clientId":"3cabcf22-041b-43c8-90c3-174e5d7f8b17"}
+[2025-09-19T13:18:08.108Z] [INFO] WebSocket client disconnected | {"clientId":"7605f6cb-c861-4a11-b5fd-534830ec3661"}
+[2025-09-19T13:18:08.109Z] [INFO] WebSocket client disconnected | {"clientId":"8c8fac32-19eb-4f6e-b258-c014abd08a96"}
+[2025-09-19T13:18:08.110Z] [INFO] WebSocket client disconnected | {"clientId":"e2c54726-c564-4db1-b4cc-2eb759ee75d2"}
+[2025-09-19T13:18:08.115Z] [INFO] WebSocket client disconnected | {"clientId":"20774ced-d29e-45da-84d7-5f42504fde6f"}
+[2025-09-19T13:18:08.117Z] [INFO] WebSocket client disconnected | {"clientId":"e90919b7-0c6f-453f-a0c2-954fbd386ab9"}
+[2025-09-19T13:18:08.117Z] [INFO] WebSocket client disconnected | {"clientId":"7220d558-9275-4b78-a9c7-96fa44395115"}
+[2025-09-19T13:18:08.119Z] [INFO] WebSocket client disconnected | {"clientId":"51a2caa7-f0a7-46f1-9fa1-88ecd682a455"}
+[2025-09-19T13:18:08.120Z] [INFO] WebSocket client disconnected | {"clientId":"2d08e6c2-fd54-4671-90ff-4c0560426fb0"}
+[2025-09-19T13:18:08.120Z] [INFO] WebSocket client disconnected | {"clientId":"0667a9e6-fb73-4129-ac6d-15e840686adf"}
+[2025-09-19T13:18:08.123Z] [INFO] WebSocket client disconnected | {"clientId":"b830a666-9e57-45ab-a55f-380a399b37d8"}
+[2025-09-19T13:18:08.124Z] [INFO] WebSocket client disconnected | {"clientId":"0738a98c-c394-40a0-bb7c-28d06f3bde79"}
+[2025-09-19T13:18:08.124Z] [INFO] WebSocket client disconnected | {"clientId":"f3a98913-fd2c-448f-8c0e-d1cdde467d3c"}
+[2025-09-19T13:18:08.126Z] [INFO] WebSocket client disconnected | {"clientId":"c0497468-f66d-44dd-bee1-6cd31420d705"}
+[2025-09-19T13:18:08.125Z] [INFO] WebSocket client disconnected | {"clientId":"9ab5af65-c100-4cc6-9e14-67b00554373b"}
+[2025-09-19T13:18:08.127Z] [INFO] WebSocket client disconnected | {"clientId":"ce7f7117-4a49-46ab-9612-4e70ef903ee6"}
+[2025-09-19T13:18:08.126Z] [INFO] WebSocket client disconnected | {"clientId":"b74742de-52db-4c6e-9e8c-2bdef75aa28e"}
+[2025-09-19T13:18:08.131Z] [INFO] WebSocket client disconnected | {"clientId":"34386f33-b0ab-49ff-88c8-7b138d47031a"}
+[2025-09-19T13:18:08.132Z] [INFO] WebSocket client disconnected | {"clientId":"30b26a31-9279-47f5-92f0-00b4fa05216f"}
+[2025-09-19T13:18:08.133Z] [INFO] WebSocket client disconnected | {"clientId":"2d3df2fa-ab07-48ff-9d4c-0d0a2b01cb03"}
+[2025-09-19T13:18:08.134Z] [INFO] WebSocket client disconnected | {"clientId":"64d2e39f-70fc-49d8-b63c-b0261646d830"}
+[2025-09-19T13:18:08.134Z] [INFO] WebSocket client disconnected | {"clientId":"4256d2a2-4833-4151-8d24-2790f3717701"}
+[2025-09-19T13:18:08.135Z] [INFO] WebSocket client disconnected | {"clientId":"0e9e0ddf-a62b-4d2f-94af-ce8ea0716724"}
+[2025-09-19T13:18:08.136Z] [INFO] WebSocket client disconnected | {"clientId":"cdcd78ea-0428-4302-986f-44ba77fe28ee"}
+[2025-09-19T13:18:08.136Z] [INFO] WebSocket client disconnected | {"clientId":"54f13e86-3ee0-4958-9f2b-0c7d597cea30"}
+[2025-09-19T13:18:08.137Z] [INFO] WebSocket client disconnected | {"clientId":"b2ab928b-103e-487d-a2da-3e598f67b75d"}
+[2025-09-19T13:18:08.138Z] [INFO] WebSocket client disconnected | {"clientId":"f0ddc30b-fc5b-47a8-81a2-aa826e69dc14"}
+[2025-09-19T13:18:08.138Z] [INFO] WebSocket client disconnected | {"clientId":"7250b305-39ae-4bc6-88aa-b720216d9f73"}
+[2025-09-19T13:18:08.139Z] [INFO] WebSocket client disconnected | {"clientId":"5c76665d-296a-40d1-b980-4814791db37c"}
+[2025-09-19T13:18:08.140Z] [INFO] WebSocket client disconnected | {"clientId":"1c72970b-4894-4ccf-8836-8e5bd8f43a41"}
+[2025-09-19T13:18:08.147Z] [INFO] WebSocket client disconnected | {"clientId":"799d4b20-fe16-45d6-8812-64bc0ada6e63"}
+[2025-09-19T13:18:08.149Z] [INFO] WebSocket client disconnected | {"clientId":"01405662-57de-4bbc-be87-80a7c6673573"}
+[2025-09-19T13:18:08.148Z] [INFO] WebSocket client disconnected | {"clientId":"88420acf-5fbe-41f4-a631-dbfc7e9c6c8b"}
+[2025-09-19T13:18:08.149Z] [INFO] WebSocket client disconnected | {"clientId":"ba00442e-e48f-4ff6-9711-0df29723ea9e"}
+[2025-09-19T13:18:08.150Z] [INFO] WebSocket client disconnected | {"clientId":"c28d897f-c1be-4eeb-ae5c-d4393acec2e6"}
+[2025-09-19T13:18:08.151Z] [INFO] WebSocket client disconnected | {"clientId":"be44d062-c391-4a87-8c2c-dadee0771479"}
+[2025-09-19T13:18:08.151Z] [INFO] WebSocket client disconnected | {"clientId":"72561114-14a8-41c2-89ec-8b812beea39b"}
+[2025-09-19T13:18:08.152Z] [INFO] WebSocket client disconnected | {"clientId":"bcc5dc16-1568-4d97-971b-7078510da0f9"}
+[2025-09-19T13:18:08.153Z] [INFO] WebSocket client disconnected | {"clientId":"34c02650-cf06-450f-9389-e05ebc060c6b"}
+[2025-09-19T13:18:08.153Z] [INFO] WebSocket client disconnected | {"clientId":"d4db2c74-c1fc-42be-8d50-c35713a7bc7a"}
+[2025-09-19T13:18:08.154Z] [INFO] WebSocket client disconnected | {"clientId":"9759ea55-8bfa-47ea-880c-bb7fb71f262c"}
+[2025-09-19T13:18:08.155Z] [INFO] WebSocket client disconnected | {"clientId":"42959901-fc59-4a1e-a757-d4a68fa92aeb"}
+[2025-09-19T13:18:08.155Z] [INFO] WebSocket client disconnected | {"clientId":"82242035-6b78-4452-88cb-430f03cf2f9c"}
+[2025-09-19T13:18:08.156Z] [INFO] WebSocket client disconnected | {"clientId":"73d227a1-d9b4-4246-b825-182a04c8b710"}
+[2025-09-19T13:18:08.157Z] [INFO] WebSocket client disconnected | {"clientId":"78adc47d-5b3f-40cd-b8ea-e3cf662a4284"}
+[2025-09-19T13:18:08.157Z] [INFO] WebSocket client disconnected | {"clientId":"35ab0c8e-2033-4122-8062-19ee293a5bbd"}
+[2025-09-19T13:18:08.158Z] [INFO] WebSocket client disconnected | {"clientId":"73241d4b-7332-4be6-8d32-e44224101ee1"}
+[2025-09-19T13:18:08.159Z] [INFO] WebSocket client disconnected | {"clientId":"752aa08b-1a31-4a4c-827c-6e4e6db77ad8"}
+[2025-09-19T13:18:08.159Z] [INFO] WebSocket client disconnected | {"clientId":"7c237697-eccf-446c-a94f-abb9cd6d2c60"}
+[2025-09-19T13:18:08.160Z] [INFO] WebSocket client disconnected | {"clientId":"4e44bcf7-87b4-47ff-a7ce-03a1d14f152e"}
+[2025-09-19T13:18:08.161Z] [INFO] WebSocket client disconnected | {"clientId":"3ed7b0be-d3e4-4c6e-a9e8-d655560597d3"}
+[2025-09-19T13:18:08.161Z] [INFO] WebSocket client disconnected | {"clientId":"86004e11-1132-4ba4-bb3c-5b5078df0688"}
+[2025-09-19T13:18:08.162Z] [INFO] WebSocket client disconnected | {"clientId":"8ac809e0-da2f-4d88-9d5c-cc7bb8c402c4"}
+[2025-09-19T13:18:08.163Z] [INFO] WebSocket client disconnected | {"clientId":"80028080-59b2-47ec-ad21-2f4e7989dcae"}
+[2025-09-19T13:18:08.164Z] [INFO] WebSocket client disconnected | {"clientId":"5f331661-4072-4727-85f2-30182789e748"}
+[2025-09-19T13:18:08.165Z] [INFO] WebSocket client disconnected | {"clientId":"bf48d7ea-f5f7-48ff-941a-b232ba31787a"}
+[2025-09-19T13:18:08.165Z] [INFO] WebSocket client disconnected | {"clientId":"a7a2c134-b3a0-40c3-b9d9-41c0e31a1a03"}
+[2025-09-19T13:18:08.166Z] [INFO] WebSocket client disconnected | {"clientId":"b237cc27-da78-44a2-b82a-d10c0fd1e3c0"}
+[2025-09-19T13:18:08.167Z] [INFO] WebSocket client disconnected | {"clientId":"79d67d66-b010-4486-8894-61994c81dca0"}
+[2025-09-19T13:18:08.167Z] [INFO] WebSocket client disconnected | {"clientId":"b4261226-e6d9-43f4-978a-433b9ba85ea8"}
+[2025-09-19T13:18:08.179Z] [INFO] WebSocket client disconnected | {"clientId":"efeb1826-5d90-463e-853d-5dd0ab3b406e"}
+[2025-09-19T13:18:08.180Z] [INFO] WebSocket client disconnected | {"clientId":"db2aa55d-0a4d-4e34-ae59-b1446020d57d"}
+[2025-09-19T13:18:08.181Z] [INFO] WebSocket client disconnected | {"clientId":"5f9fedf1-f09c-4ab5-b284-c3a536f96859"}
+[2025-09-19T13:18:08.182Z] [INFO] WebSocket client disconnected | {"clientId":"d0110788-ea16-4ec3-aa2b-e7bfbfeaab51"}
+[2025-09-19T13:18:08.183Z] [INFO] WebSocket client disconnected | {"clientId":"059398ca-e341-457b-9373-718946fbdf82"}
+[2025-09-19T13:18:08.182Z] [INFO] WebSocket client disconnected | {"clientId":"698170f2-f68b-430f-968f-060dc7bb5076"}
+[2025-09-19T13:18:08.185Z] [INFO] WebSocket client disconnected | {"clientId":"a7bef7ed-582a-400b-90ab-020bfbf5110a"}
+[2025-09-19T13:18:08.184Z] [INFO] WebSocket client disconnected | {"clientId":"4096d0e1-93dc-42c0-a8e6-a6243096eacf"}
+[2025-09-19T13:18:08.188Z] [INFO] WebSocket client disconnected | {"clientId":"e17c05fe-1533-43a0-b77b-90e93fd4910f"}
+[2025-09-19T13:18:08.187Z] [INFO] WebSocket client disconnected | {"clientId":"b7e04f3c-7f64-4419-8480-27513ee5cef9"}
+[2025-09-19T13:18:08.186Z] [INFO] WebSocket client disconnected | {"clientId":"67028a5b-c7f3-4857-a42c-12ff99ed58be"}
+[2025-09-19T13:18:08.189Z] [INFO] WebSocket client disconnected | {"clientId":"f6fd9206-9a64-4591-beae-1983f8cac317"}
+[2025-09-19T13:18:08.190Z] [INFO] WebSocket client disconnected | {"clientId":"bb582af8-3cf6-4a38-9879-2b20592eddfa"}
+[2025-09-19T13:18:08.190Z] [INFO] WebSocket client disconnected | {"clientId":"5c67b696-404c-460b-8f8e-bf68e0c06836"}
+[2025-09-19T13:18:08.191Z] [INFO] WebSocket client disconnected | {"clientId":"1bf43fa9-6add-4b79-b262-80849780259e"}
+[2025-09-19T13:18:08.192Z] [INFO] WebSocket client disconnected | {"clientId":"5640679d-f320-4e58-b7d7-c4594257df6d"}
+[2025-09-19T13:18:08.191Z] [INFO] WebSocket client disconnected | {"clientId":"1616fd46-9312-42fb-b7e1-1b97e0d91212"}
+[2025-09-19T13:18:08.194Z] [INFO] WebSocket client disconnected | {"clientId":"7dc342b8-e375-4974-a15c-dad244cb9546"}
+[2025-09-19T13:18:08.187Z] [INFO] WebSocket client disconnected | {"clientId":"ed4a7ef2-bf38-481d-b490-ec37882e3f99"}
+[2025-09-19T13:18:08.196Z] [INFO] WebSocket client disconnected | {"clientId":"5667cae4-7af0-48ae-9f46-6805f40272ac"}
+[2025-09-19T13:18:08.196Z] [INFO] WebSocket client disconnected | {"clientId":"171a6293-e4fc-43c3-a8db-620677f25c8c"}
+[2025-09-19T13:18:08.195Z] [INFO] WebSocket client disconnected | {"clientId":"ae7674f5-03c3-4d62-8cf5-2cf322c41a6a"}
+[2025-09-19T13:18:08.193Z] [INFO] WebSocket client disconnected | {"clientId":"da46753b-68cc-46ad-b32e-c225b0136422"}
+[2025-09-19T13:18:08.198Z] [INFO] WebSocket client disconnected | {"clientId":"8b6983ac-808b-446a-aecd-45156fedc7e7"}
+[2025-09-19T13:18:08.199Z] [INFO] WebSocket client disconnected | {"clientId":"4ad41749-9ce5-465c-849d-3e32f9f91a21"}
+[2025-09-19T13:18:08.197Z] [INFO] WebSocket client disconnected | {"clientId":"29e190e9-26a2-422f-b802-54c1d747abbb"}
+[2025-09-19T13:18:08.199Z] [INFO] WebSocket client disconnected | {"clientId":"145f0f95-f039-4172-9941-654c2c98a12e"}
+[2025-09-19T13:18:08.200Z] [INFO] WebSocket client disconnected | {"clientId":"b3668a99-2932-4349-8464-8bfb79a4d76b"}
+[2025-09-19T13:18:15.005Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-19T13:18:15.069Z] [INFO] New agent creation request | {"description":"Test agent"}
+[2025-09-19T13:18:15.119Z] [INFO] Agent created successfully | {"name":"Assistant_5076","linesGenerated":0,"executionTime":55}
+[2025-09-19T13:18:15.278Z] [INFO] WebSocket client disconnected | {"clientId":"cf87d5ba-f8d5-42a8-aa89-605e7b8ea868"}
