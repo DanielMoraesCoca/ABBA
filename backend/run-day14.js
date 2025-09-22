@@ -1,4 +1,4 @@
-const AgentOptimizer = require('./src/core/agent-optimizer');
+const AgentOptimizer = require('./src/agents/agent-optimizer');
 const runConsolidationTests = require('./test-consolidation');
 
 async function runDay14() {

@@ -4,8 +4,6 @@ const acorn = require('acorn');
 
 class ValidatorAgent {
   constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
     this.name = 'Validator';
     this.eslint = new ESLint({
       baseConfig: {
@@ -145,8 +143,7 @@ class ValidatorAgent {
       }
     }
     
-    const result = { issues, critical , processingTime: Date.now() - startTime };
-        return result;
+    return { issues, critical };
   }
 
   checkErrorHandling(code) {
@@ -175,8 +172,7 @@ class ValidatorAgent {
       issues.push('No error logging found');
     }
     
-    const result = { adequate, issues , processingTime: Date.now() - startTime };
-        return result;
+    return { adequate, issues };
   }
 
   validateDependencies(code) {
@@ -203,8 +199,7 @@ class ValidatorAgent {
       missing.push('fs');
     }
     
-    const result = { imports, missing , processingTime: Date.now() - startTime };
-        return result;
+    return { imports, missing };
   }
 
   calculateQualityMetrics(code) {
@@ -227,14 +222,13 @@ class ValidatorAgent {
     const avgFunctionSize = functionCount > 0 ? codeLines / functionCount : codeLines;
     const testability = avgFunctionSize < 20 ? 100 : Math.max(0, 100 - (avgFunctionSize - 20) * 2);
     
-    const result = {
+    return {
       complexity: Math.round(complexity),
       maintainability: Math.round(maintainability),
       testability: Math.round(testability),
       codeLines,
       commentRatio: Math.round((commentLines / totalLines) * 100)
-    , processingTime: Date.now() - startTime };
-        return result;
+    };
   }
 
   generateSuggestions(code, report) {

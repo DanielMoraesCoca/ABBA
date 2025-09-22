@@ -1,8 +1,6 @@
 // backend/src/agents/testwriter.js
 class TestWriterAgent {
     constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
       this.name = 'TestWriter';
     }
   

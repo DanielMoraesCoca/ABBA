@@ -4,8 +4,6 @@
 
 class InterpreterAgent {
     constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
       this.id = 'interpreter';
       
       // Dicionário de capacidades (palavras-chave)
@@ -47,7 +45,6 @@ class InterpreterAgent {
      * Processa mensagem e extrai todas as informações
      */
     async process(message, context) {
-        try {
       const description = message.originalDescription || message;
       
       console.log('INTERPRETER: Analyzing description...');

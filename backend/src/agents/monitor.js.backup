@@ -4,8 +4,6 @@ const path = require('path');
 
 class MonitorAgent {
   constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
     this.name = 'Monitor';
     this.logs = [];
     this.metrics = {

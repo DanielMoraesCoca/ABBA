@@ -1,8 +1,6 @@
 // backend/src/agents/code-reviewer.js
 class CodeReviewerAgent {
     constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
       this.name = 'CodeReviewer';
       this.reviewChecks = [
         'naming-conventions',

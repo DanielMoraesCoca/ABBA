@@ -4,8 +4,6 @@ const path = require('path');
 
 class DeployerAgent {
   constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
     this.name = 'Deployer';
     this.deploymentPath = path.join(__dirname, '../../deployments');
     this.initializeDeploymentDirectory();

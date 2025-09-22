@@ -4,8 +4,6 @@
 
 class ArchitectAgent {
     constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
       this.id = 'architect';
       
       // Templates de arquitetura por tipo de agente
@@ -85,7 +83,6 @@ class ArchitectAgent {
      * Processa a interpretação e gera arquitetura
      */
     async process(message, context) {
-        try {
       console.log('ARCHITECT: Designing agent architecture...');
       
       const interpretation = message;

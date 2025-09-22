@@ -4,8 +4,6 @@
 
 class CoderAgent {
     constructor() {
-        this.cache = new Map();
-        this.cacheTimeout = 300000; // 5 minutes
       this.id = 'coder';
       
       // Templates de código base
@@ -47,7 +45,6 @@ class CoderAgent {
     }
   
     async process(input) {
-        try {
       // Main processing logic here
       console.log('Processing:', input);
       {{processingLogic}}
@@ -137,14 +134,7 @@ class CoderAgent {
     async delete(id) {
       console.log('Deleting:', id);
       {{deleteLogic}}
-      return { success: true, deleted: 1 }
-        } catch (error) {
-            console.error(`[${this.name}] Error:`, error.message);
-            return {
-                success: false,
-                error: error.message
-            };
-        };
+      return { success: true, deleted: 1 };
     }
   }
   

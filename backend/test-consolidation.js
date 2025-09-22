@@ -34,8 +34,8 @@ async function runConsolidationTests() {
     
     // Test 2: File Storage System
     console.log('\n📁 Testing File Storage...');
-    const FileStorage = require('./src/core/file-storage');
-    const storage = new FileStorage();
+    // `file-storage.js` exports an instance, not the class constructor.
+    const storage = require('./src/core/file-storage');
     
     try {
         await storage.save('test', 'consolidation', { test: true });
