@@ -1,126 +1,196 @@
-// backend/src/core/memory-system.js
-const db = require('../config/database');
+const fs = require('fs').promises;
+const path = require('path');
 
 class MemorySystem {
-  constructor() {
-    this.shortTermMemory = new Map();
-    this.memoryLimit = 100; // items per agent
-  }
-
-  async remember(agentId, key, value, type = 'short') {
-    try {
-      // Short term memory (in-memory)
-      if (type === 'short') {
-        if (!this.shortTermMemory.has(agentId)) {
-          this.shortTermMemory.set(agentId, new Map());
+    constructor() {
+        this.shortTermMemory = new Map();
+        this.patterns = new Map();
+        this.memoryDir = path.join(__dirname, '../../memory');
+        this.maxShortTermSize = 100;
+        this.compressionEnabled = true;
+    }
+    
+    async initialize() {
+        await fs.mkdir(this.memoryDir, { recursive: true });
+        await this.loadFromDisk();
+        
+        // Set up auto-save interval
+        setInterval(() => this.saveToDisk(), 60000); // Save every minute
+        
+        console.log('✅ Memory System initialized (File Storage Mode)');
+    }
+    
+    async remember(agentName, key, value) {
+        const memoryKey = `${agentName}:${key}`;
+        
+        // Compress if large
+        if (this.compressionEnabled && JSON.stringify(value).length > 1000) {
+            value = this.compress(value);
         }
         
-        const agentMemory = this.shortTermMemory.get(agentId);
-        agentMemory.set(key, {
-          value,
-          timestamp: Date.now()
+        this.shortTermMemory.set(memoryKey, {
+            value,
+            timestamp: Date.now(),
+            accessCount: 1,
+            compressed: this.compressionEnabled
         });
         
-        // Limit memory size
-        if (agentMemory.size > this.memoryLimit) {
-          const firstKey = agentMemory.keys().next().value;
-          agentMemory.delete(firstKey);
-        }
-      }
-      
-      // Long term memory (database)
-      if (type === 'long') {
-        await db.query(
-          `INSERT INTO agent_memories (agent_id, memory_type, content)
-           VALUES ($1, $2, $3)`,
-          [agentId, type, JSON.stringify({ key, value })]
-        );
-      }
-      
-      return true;
-    } catch (error) {
-      console.error('Error saving memory:', error);
-      return false;
-    }
-  }
-
-  async recall(agentId, key, type = 'short') {
-    try {
-      // Check short term memory
-      if (type === 'short' && this.shortTermMemory.has(agentId)) {
-        const agentMemory = this.shortTermMemory.get(agentId);
-        if (agentMemory.has(key)) {
-          return agentMemory.get(key).value;
-        }
-      }
-      
-      // Check long term memory
-      if (type === 'long') {
-        const result = await db.query(
-          `SELECT content FROM agent_memories 
-           WHERE agent_id = $1 AND content->>'key' = $2
-           ORDER BY created_at DESC LIMIT 1`,
-          [agentId, key]
-        );
-        
-        if (result.rows.length > 0) {
-          return result.rows[0].content.value;
-        }
-      }
-      
-      return null;
-    } catch (error) {
-      console.error('Error recalling memory:', error);
-      return null;
-    }
-  }
-
-  async forget(agentId, key = null) {
-    try {
-      if (key) {
-        // Forget specific memory
-        if (this.shortTermMemory.has(agentId)) {
-          this.shortTermMemory.get(agentId).delete(key);
+        // Manage memory size
+        if (this.shortTermMemory.size > this.maxShortTermSize) {
+            await this.evictOldest();
         }
         
-        await db.query(
-          `DELETE FROM agent_memories 
-           WHERE agent_id = $1 AND content->>'key' = $2`,
-          [agentId, key]
-        );
-      } else {
-        // Forget all memories for agent
-        this.shortTermMemory.delete(agentId);
-        
-        await db.query(
-          'DELETE FROM agent_memories WHERE agent_id = $1',
-          [agentId]
-        );
-      }
-      
-      return true;
-    } catch (error) {
-      console.error('Error forgetting memory:', error);
-      return false;
+        return true;
     }
-  }
-
-  async getMemoryStats(agentId) {
-    const shortTermSize = this.shortTermMemory.has(agentId) 
-      ? this.shortTermMemory.get(agentId).size 
-      : 0;
     
-    const longTermResult = await db.query(
-      'SELECT COUNT(*) as count FROM agent_memories WHERE agent_id = $1',
-      [agentId]
-    );
+    async recall(agentName, key) {
+        const memoryKey = `${agentName}:${key}`;
+        
+        // Check short-term memory
+        if (this.shortTermMemory.has(memoryKey)) {
+            const memory = this.shortTermMemory.get(memoryKey);
+            memory.accessCount++;
+            memory.lastAccess = Date.now();
+            
+            return memory.compressed ? 
+                this.decompress(memory.value) : 
+                memory.value;
+        }
+        
+        // Load from disk if not in memory
+        const filePath = path.join(this.memoryDir, `${agentName}.json`);
+        try {
+            const data = await fs.readFile(filePath, 'utf-8');
+            const memories = JSON.parse(data);
+            
+            if (memories[key]) {
+                // Load into short-term memory
+                this.shortTermMemory.set(memoryKey, memories[key]);
+                return memories[key].value;
+            }
+        } catch (error) {
+            // Memory not found
+        }
+        
+        return null;
+    }
     
-    return {
-      shortTerm: shortTermSize,
-      longTerm: parseInt(longTermResult.rows[0].count),
-      total: shortTermSize + parseInt(longTermResult.rows[0].count)
-    };
-  }
+    compress(value) {
+        // Simple compression: remove whitespace from JSON
+        return JSON.stringify(value);
+    }
+    
+    decompress(value) {
+        return typeof value === 'string' ? JSON.parse(value) : value;
+    }
+    
+    async evictOldest() {
+        const sorted = Array.from(this.shortTermMemory.entries())
+            .sort((a, b) => a[1].lastAccess - b[1].lastAccess);
+        
+        // Save oldest to disk before removing
+        const [keyToEvict, memory] = sorted[0];
+        const [agentName, key] = keyToEvict.split(':');
+        
+        const filePath = path.join(this.memoryDir, `${agentName}.json`);
+        let memories = {};
+        
+        try {
+            const data = await fs.readFile(filePath, 'utf-8');
+            memories = JSON.parse(data);
+        } catch (error) {
+            // File doesn't exist yet
+        }
+        
+        memories[key] = memory;
+        await fs.writeFile(filePath, JSON.stringify(memories, null, 2));
+        
+        // Remove from short-term memory
+        this.shortTermMemory.delete(keyToEvict);
+    }
+    
+    async saveToDisk() {
+        const agentMemories = {};
+        
+        // Group memories by agent
+        for (const [key, memory] of this.shortTermMemory.entries()) {
+            const [agentName, memKey] = key.split(':');
+            if (!agentMemories[agentName]) {
+                agentMemories[agentName] = {};
+            }
+            agentMemories[agentName][memKey] = memory;
+        }
+        
+        // Save each agent's memories
+        for (const [agentName, memories] of Object.entries(agentMemories)) {
+            const filePath = path.join(this.memoryDir, `${agentName}.json`);
+            await fs.writeFile(filePath, JSON.stringify(memories, null, 2));
+        }
+    }
+    
+    async loadFromDisk() {
+        try {
+            const files = await fs.readdir(this.memoryDir);
+            
+            for (const file of files) {
+                if (file.endsWith('.json')) {
+                    const agentName = file.replace('.json', '');
+                    const filePath = path.join(this.memoryDir, file);
+                    const data = await fs.readFile(filePath, 'utf-8');
+                    const memories = JSON.parse(data);
+                    
+                    // Load recent memories
+                    for (const [key, memory] of Object.entries(memories)) {
+                        const memoryAge = Date.now() - memory.timestamp;
+                        if (memoryAge < 3600000) { // Last hour
+                            this.shortTermMemory.set(`${agentName}:${key}`, memory);
+                        }
+                    }
+                }
+            }
+            
+            console.log(`  Loaded ${this.shortTermMemory.size} recent memories`);
+        } catch (error) {
+            console.log('  No existing memories found');
+        }
+    }
+    
+    learnPattern(pattern, response) {
+        if (!this.patterns.has(pattern)) {
+            this.patterns.set(pattern, []);
+        }
+        
+        const responses = this.patterns.get(pattern);
+        responses.push({
+            response,
+            count: 1,
+            success: true,
+            timestamp: Date.now()
+        });
+        
+        if (responses.length > 10) {
+            responses.shift();
+        }
+    }
+    
+    getPatternResponse(pattern) {
+        if (this.patterns.has(pattern)) {
+            const responses = this.patterns.get(pattern);
+            return responses.sort((a, b) => b.count - a.count)[0].response;
+        }
+        return null;
+    }
+    
+    async getStats() {
+        const files = await fs.readdir(this.memoryDir).catch(() => []);
+        
+        return {
+            shortTermMemorySize: this.shortTermMemory.size,
+            patternsLearned: this.patterns.size,
+            totalMemoryFiles: files.filter(f => f.endsWith('.json')).length,
+            compressionEnabled: this.compressionEnabled
+        };
+    }
 }
 
-module.exports = new MemorySystem();
+module.exports = MemorySystem;

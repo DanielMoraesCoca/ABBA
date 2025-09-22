@@ -38,7 +38,7 @@ class TestRunner {
         console.log('\n📝 Running Unit Tests...\n');
         
         try {
-            const { stdout, stderr } = await execAsync('npm test -- --testPathPatterns=unit');
+            const { stdout, stderr } = await execAsync('npm test -- --testNamePattern="unit"');
             
             // Parse Jest output
             const lines = stdout.split('\n');
@@ -65,7 +65,7 @@ class TestRunner {
         console.log('\n🔗 Running Integration Tests...\n');
         
         try {
-            const { stdout } = await execAsync('npm test -- --testPathPatterns=integration');
+            const { stdout } = await execAsync('npm test -- --testNamePattern="integration"');
             
             const lines = stdout.split('\n');
             const summary = this.parseJestOutput(lines);
