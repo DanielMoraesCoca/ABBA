@@ -1,0 +1,9 @@
+{
+  "test-key": {
+    "value": "test-value",
+    "timestamp": 1758580103398,
+    "accessCount": 2,
+    "compressed": true,
+    "lastAccess": 1758580103398
+  }
+}
