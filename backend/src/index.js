@@ -31,6 +31,7 @@ const WebSocketServer = require('./core/websocket-server');
 
 // NEW - DAY 11: Import widget system
 const WidgetAPI = require('./core/widget-api');
+const ChannelManager = require('./core/channel-manager');
 
 // Criar aplicação Express
 const app = express();
@@ -51,6 +52,7 @@ const orchestrator = new OrchestratorAgent(mcp);
 const interpreter = new InterpreterAgent();
 const architect = new ArchitectAgent();
 const coder = new CoderAgent();
+const channelManager = new ChannelManager();
 
 // DIA 4: Inicializar novos agentes
 const validator = new ValidatorAgent();
@@ -479,6 +481,41 @@ process.on('SIGTERM', () => {
     logger.info('Server closed');
     process.exit(0);
   });
+});
+
+// Inicialização assíncrona - DIA 11
+(async () => {
+  // Inicializar MCP e Agentes
+  await mcp.initialize();
+  await orchestrator.initialize();
+  await interpreter.initialize();
+  await architect.initialize();
+  await coder.initialize();
+  
+  // DIA 4: Inicializar novos agentes
+  await validator.initialize();
+  await testWriter.initialize();
+  await monitor.initialize();
+  await deployer.initialize();
+  
+  // NEW - DAY 11: Inicializar Channel Manager
+  await channelManager.initialize();
+  channelManager.connectToOrchestrator(orchestrator);
+})();
+
+// Novas rotas da API - DIA 11
+app.post('/api/send-message', async (req, res) => {
+  try {
+      const { channel, recipient, message } = req.body;
+      const result = await channelManager.sendMessage(channel, recipient, message);
+      res.json({ success: true, result });
+  } catch (error) {
+      res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/api/channels', (req, res) => {
+  res.json(channelManager.getStats());
 });
 
 module.exports = { app, server, wsServer };
