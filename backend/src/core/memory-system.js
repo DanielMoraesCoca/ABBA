@@ -23,16 +23,24 @@ class MemorySystem {
     async remember(agentName, key, value) {
         const memoryKey = `${agentName}:${key}`;
         
+        // Ensure value is JSON-serializable
+        let processedValue = value;
+        
+        // If it's a string, wrap it in an object
+        if (typeof value === 'string') {
+            processedValue = { data: value };
+        }
+        
         // Compress if large
-        if (this.compressionEnabled && JSON.stringify(value).length > 1000) {
-            value = this.compress(value);
+        if (this.compressionEnabled && JSON.stringify(processedValue).length > 1000) {
+            processedValue = this.compress(processedValue);
         }
         
         this.shortTermMemory.set(memoryKey, {
-            value,
+            value: processedValue,
             timestamp: Date.now(),
             accessCount: 1,
-            compressed: this.compressionEnabled
+            compressed: this.compressionEnabled && JSON.stringify(processedValue).length > 1000
         });
         
         // Manage memory size
@@ -52,9 +60,16 @@ class MemorySystem {
             memory.accessCount++;
             memory.lastAccess = Date.now();
             
-            return memory.compressed ? 
+            let value = memory.compressed ? 
                 this.decompress(memory.value) : 
                 memory.value;
+            
+            // If we wrapped it, unwrap it
+            if (value && typeof value === 'object' && value.data !== undefined) {
+                return value.data;
+            }
+            
+            return value;
         }
         
         // Load from disk if not in memory
@@ -66,7 +81,15 @@ class MemorySystem {
             if (memories[key]) {
                 // Load into short-term memory
                 this.shortTermMemory.set(memoryKey, memories[key]);
-                return memories[key].value;
+                
+                let value = memories[key].value;
+                
+                // If we wrapped it, unwrap it
+                if (value && typeof value === 'object' && value.data !== undefined) {
+                    return value.data;
+                }
+                
+                return value;
             }
         } catch (error) {
             // Memory not found
@@ -86,27 +109,29 @@ class MemorySystem {
     
     async evictOldest() {
         const sorted = Array.from(this.shortTermMemory.entries())
-            .sort((a, b) => a[1].lastAccess - b[1].lastAccess);
+            .sort((a, b) => (a[1].lastAccess || a[1].timestamp) - (b[1].lastAccess || b[1].timestamp));
         
-        // Save oldest to disk before removing
-        const [keyToEvict, memory] = sorted[0];
-        const [agentName, key] = keyToEvict.split(':');
-        
-        const filePath = path.join(this.memoryDir, `${agentName}.json`);
-        let memories = {};
-        
-        try {
-            const data = await fs.readFile(filePath, 'utf-8');
-            memories = JSON.parse(data);
-        } catch (error) {
-            // File doesn't exist yet
+        if (sorted.length > 0) {
+            // Save oldest to disk before removing
+            const [keyToEvict, memory] = sorted[0];
+            const [agentName, key] = keyToEvict.split(':');
+            
+            const filePath = path.join(this.memoryDir, `${agentName}.json`);
+            let memories = {};
+            
+            try {
+                const data = await fs.readFile(filePath, 'utf-8');
+                memories = JSON.parse(data);
+            } catch (error) {
+                // File doesn't exist yet
+            }
+            
+            memories[key] = memory;
+            await fs.writeFile(filePath, JSON.stringify(memories, null, 2));
+            
+            // Remove from short-term memory
+            this.shortTermMemory.delete(keyToEvict);
         }
-        
-        memories[key] = memory;
-        await fs.writeFile(filePath, JSON.stringify(memories, null, 2));
-        
-        // Remove from short-term memory
-        this.shortTermMemory.delete(keyToEvict);
     }
     
     async saveToDisk() {
