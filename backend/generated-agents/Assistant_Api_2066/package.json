@@ -1,0 +1,22 @@
+{
+  "name": "assistant-api-2066",
+  "version": "1.0.0",
+  "description": "Agent: Assistant_Api_2066",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "dotenv": "latest",
+    "winston": "latest",
+    "express": "latest",
+    "node-schedule": "latest",
+    "axios": "latest",
+    "express-rate-limit": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}

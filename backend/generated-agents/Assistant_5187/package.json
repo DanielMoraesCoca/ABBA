@@ -1,0 +1,20 @@
+{
+  "name": "assistant-5187",
+  "version": "1.0.0",
+  "description": "Agent: Assistant_5187",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "dotenv": "latest",
+    "winston": "latest",
+    "express": "latest",
+    "node-schedule": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
