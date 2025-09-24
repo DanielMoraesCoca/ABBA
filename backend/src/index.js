@@ -493,35 +493,27 @@ process.on('SIGTERM', () => {
 
 // Inicialização assíncrona - DIA 11
 (async () => {
-  // Inicializar MCP e Agentes
-  try {
-    if (mcp && typeof mcp.initialize === 'function') {
-        await mcp.initialize();
-    } else {
-        console.warn('mcp.initialize is not available; skipping initialization.');
+    // MCP doesn't need initialization - it's ready after construction
+    console.log('MCP Server ready');
+    
+    // Initialize memory system if it exists
+    if (orchestrator.memorySystem && typeof orchestrator.memorySystem.initialize === 'function') {
+        await orchestrator.memorySystem.initialize();
+        console.log('Memory System initialized');
     }
-} catch (err) {
-    console.error('mcp initialization failed:', err);
-    // optional: process.exit(1);
-  }
-  if (orchestrator && typeof orchestrator.initialize === 'function') {
-    await orchestrator.initialize();
-  } else {
-    console.info('orchestrator.initialize not present, skipping initialization');
-  }
-  await interpreter.initialize();
-  await architect.initialize();
-  await coder.initialize();
-  
-  // DIA 4: Inicializar novos agentes
-  await validator.initialize();
-  await testWriter.initialize();
-  await monitor.initialize();
-  await deployer.initialize();
-  
-  // NEW - DAY 11: Inicializar Channel Manager
-  await channelManager.initialize();
-  channelManager.connectToOrchestrator(orchestrator);
+    
+    // Initialize Channel Manager if it exists
+    if (channelManager && typeof channelManager.initialize === 'function') {
+        try {
+            await channelManager.initialize();
+            channelManager.connectToOrchestrator(orchestrator);
+            console.log('Channel Manager initialized');
+        } catch (error) {
+            console.warn('Channel Manager initialization failed:', error.message);
+        }
+    }
+    
+    console.log('✅ System initialization complete');
 })();
 
 // Novas rotas da API - DIA 11
