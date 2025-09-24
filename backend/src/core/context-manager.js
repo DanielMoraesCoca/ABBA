@@ -65,4 +65,4 @@ class ContextManager {
     }
 }
 
-module.exports = new ContextManager();
+module.exports = ContextManager;
