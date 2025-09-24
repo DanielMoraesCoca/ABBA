@@ -1,0 +1,6 @@
+[2025-09-24T01:38:51.575Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-24T01:38:51.577Z] [INFO] ABBA Platform Started | {"port":3333,"environment":"development","version":"0.11.0","day":11,"agents":8,"features":["logging","error-handling","professional-ui","api-gateway","websocket","webhooks","widgets"]}
+[2025-09-24T01:38:51.577Z] [ERROR] Unhandled Rejection | {"reason":"TypeError: mcp.initialize is not a function","promise":"[object Promise]"}
+[2025-09-24T01:48:52.050Z] [INFO] ABBA Platform initialized | {"agents":8,"pipeline":["interpreter","architect","coder","validator"],"deliveryMethods":["REST API","WebSocket","Webhooks","Widgets"],"apiVersion":"v1","widgetSystem":true}
+[2025-09-24T01:48:52.052Z] [INFO] ABBA Platform Started | {"port":3333,"environment":"development","version":"0.11.0","day":11,"agents":8,"features":["logging","error-handling","professional-ui","api-gateway","websocket","webhooks","widgets"]}
+[2025-09-24T01:48:52.052Z] [ERROR] Unhandled Rejection | {"reason":"TypeError: orchestrator.initialize is not a function","promise":"[object Promise]"}

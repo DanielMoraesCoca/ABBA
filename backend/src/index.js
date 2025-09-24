@@ -486,7 +486,16 @@ process.on('SIGTERM', () => {
 // Inicialização assíncrona - DIA 11
 (async () => {
   // Inicializar MCP e Agentes
-  await mcp.initialize();
+  try {
+    if (mcp && typeof mcp.initialize === 'function') {
+        await mcp.initialize();
+    } else {
+        console.warn('mcp.initialize is not available; skipping initialization.');
+    }
+} catch (err) {
+    console.error('mcp initialization failed:', err);
+    // optional: process.exit(1);
+  }
   await orchestrator.initialize();
   await interpreter.initialize();
   await architect.initialize();
