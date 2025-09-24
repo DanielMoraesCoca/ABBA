@@ -294,9 +294,9 @@ class OrchestratorAgent {
      * Cria especificação final do agente
      */
     async createAgentSpecification(processedData) {
-      console.log('Creating final agent specification...');
-      
-      const spec = {
+    console.log('Creating final agent specification...');
+    
+    const spec = {
         id: `agent_${Date.now()}`,
         name: processedData.suggestedName || 'Generated Agent',
         description: processedData.originalDescription,
@@ -308,45 +308,113 @@ class OrchestratorAgent {
         status: 'specified',
         validation: processedData.validationReport || null,
         hasTests: !!processedData.generatedTests,
+        
+        // CRITICAL FIX: Include the actual generated code and architecture
+        code: processedData.generatedCode || null,
+        architecture: processedData.architecture || null,
+        tests: processedData.generatedTests || null,
+        
         metrics: {
-          linesOfCode: processedData.generatedCode ? 
-            processedData.generatedCode.split('\n').length : 0,
-          validated: processedData.validationReport?.valid || false,
-          testsGenerated: !!processedData.generatedTests
+            linesOfCode: processedData.generatedCode?.totalLines || 0,
+            filesGenerated: processedData.generatedCode?.totalFiles || 0,
+            validated: processedData.validationReport?.valid || false,
+            testsGenerated: !!processedData.generatedTests
         },
         createdAt: new Date(),
         specification: processedData
-      };
-      
-      // Se tudo passou, preparar para deploy
-      if (spec.validation?.valid && this.agents.deployer) {
+    };
+    
+    // Save the generated code to file system
+    if (spec.code && spec.code.files) {
+        try {
+            const fs = require('fs').promises;
+            const path = require('path');
+            
+            // Create directory for generated agent
+            const outputDir = path.join(__dirname, '../../generated-agents', spec.name);
+            await fs.mkdir(outputDir, { recursive: true });
+            
+            // Save all generated files
+            for (const [filePath, content] of Object.entries(spec.code.files)) {
+                const fullPath = path.join(outputDir, filePath);
+                const dir = path.dirname(fullPath);
+                await fs.mkdir(dir, { recursive: true });
+                await fs.writeFile(fullPath, content);
+            }
+            
+            // Save package.json if exists
+            if (spec.code.package) {
+                await fs.writeFile(
+                    path.join(outputDir, 'package.json'),
+                    JSON.stringify(spec.code.package, null, 2)
+                );
+            }
+            
+            // Save README if exists
+            if (spec.code.readme) {
+                await fs.writeFile(
+                    path.join(outputDir, 'README.md'),
+                    spec.code.readme
+                );
+            }
+            
+            // Save tests if generated
+            if (spec.tests) {
+                const testsDir = path.join(outputDir, 'tests');
+                await fs.mkdir(testsDir, { recursive: true });
+                
+                for (const [testFile, testContent] of Object.entries(spec.tests)) {
+                    await fs.writeFile(
+                        path.join(testsDir, testFile),
+                        testContent
+                    );
+                }
+            }
+            
+            spec.deploymentPath = outputDir;
+            console.log(`Agent code saved to: ${outputDir}`);
+            
+        } catch (error) {
+            console.error('Failed to save agent code:', error.message);
+            spec.saveError = error.message;
+        }
+    }
+    
+    // Se tudo passou, preparar para deploy
+    if (spec.validation?.valid && this.agents.deployer) {
         console.log('DEPLOYER: Preparing deployment...');
         const deployment = await this.agents.deployer.deployAgent(
-          spec.name,
-          processedData.generatedCode,
-          'docker'
+            spec.name,
+            spec.deploymentPath || spec.code,
+            'local'
         );
         spec.deployment = deployment;
-      }
-      
-      return spec;
     }
-  
-    /**
-     * Método requerido para agentes
-     */
-    async process(message, context) {
-      return {
+    
+    return spec;
+}
+
+/**
+ * Método requerido para agentes
+ */
+async process(message, context) {
+    // If it's a description to process, run the pipeline
+    if (typeof message === 'string' || message.originalDescription) {
+        return await this.processDescription(message);
+    }
+    
+    // Otherwise return status
+    return {
         status: 'orchestrator_ready',
         pipeline: this.pipeline,
         agents: Object.keys(this.agents),
         persistence: {
-          contextManager: !!contextManager,
-          memorySystem: !!memorySystem,
-          toolRegistry: !!toolRegistry
+            contextManager: !!contextManager,
+            memorySystem: !!memorySystem,
+            toolRegistry: !!toolRegistry
         }
-      };
-    }
-  }
-  
-  module.exports = OrchestratorAgent;
+    };
+}
+}
+
+module.exports = OrchestratorAgent;

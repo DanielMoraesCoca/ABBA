@@ -33,6 +33,9 @@ const WebSocketServer = require('./core/websocket-server');
 const WidgetAPI = require('./core/widget-api');
 const ChannelManager = require('./core/channel-manager');
 
+const CodeSaver = require('./core/code-saver');
+const codeSaver = new CodeSaver();
+
 // Criar aplicação Express
 const app = express();
 const server = http.createServer(app);
@@ -158,6 +161,11 @@ app.post('/api/create-agent', async (req, res) => {
     
     // Criar especificação final
     const agentSpec = await orchestrator.createAgentSpecification(interpretation);
+    if (agentSpec.code) {
+    const savedPath = await codeSaver.saveAgent(agentSpec);
+    agentSpec.deploymentPath = savedPath;
+    logger.info('Agent code saved', { path: savedPath });
+}
     
     // Registrar métricas
     const executionTime = Date.now() - startTime;

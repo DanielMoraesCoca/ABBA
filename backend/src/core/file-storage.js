@@ -133,4 +133,4 @@ class FileStorage {
     }
 }
 
-module.exports = FileStorage;
+module.exports = new FileStorage();
