@@ -496,7 +496,11 @@ process.on('SIGTERM', () => {
     console.error('mcp initialization failed:', err);
     // optional: process.exit(1);
   }
-  await orchestrator.initialize();
+  if (orchestrator && typeof orchestrator.initialize === 'function') {
+    await orchestrator.initialize();
+  } else {
+    console.info('orchestrator.initialize not present, skipping initialization');
+  }
   await interpreter.initialize();
   await architect.initialize();
   await coder.initialize();
