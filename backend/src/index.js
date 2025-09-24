@@ -159,18 +159,68 @@ app.post('/api/create-agent', async (req, res) => {
     // Processar através do pipeline
     const interpretation = await orchestrator.processDescription(description);
     
-    // Criar especificação final
+    // FIX: Pass the full interpretation with generated code, not just interpretation
     const agentSpec = await orchestrator.createAgentSpecification(interpretation);
-    if (agentSpec.code) {
-    const savedPath = await codeSaver.saveAgent(agentSpec);
-    agentSpec.deploymentPath = savedPath;
-    logger.info('Agent code saved', { path: savedPath });
-}
+    
+    // FIX: The code is in interpretation, not agentSpec.code yet
+    // Force the code from interpretation into agentSpec if missing
+    if (!agentSpec.code && interpretation.files) {
+      agentSpec.code = {
+        files: interpretation.files,
+        package: interpretation.package,
+        readme: interpretation.readme,
+        totalFiles: interpretation.totalFiles,
+        totalLines: interpretation.totalLines
+      };
+    }
+    
+    // Now save the agent if code exists
+    if (agentSpec.code && agentSpec.code.files) {
+      try {
+        const fs = require('fs').promises;
+        const path = require('path');
+        
+        // Create directory for generated agent
+        const outputDir = path.join(__dirname, '../generated-agents', agentSpec.name);
+        await fs.mkdir(outputDir, { recursive: true });
+        
+        // Save all generated files
+        for (const [filePath, content] of Object.entries(agentSpec.code.files)) {
+          const fullPath = path.join(outputDir, filePath);
+          const dir = path.dirname(fullPath);
+          await fs.mkdir(dir, { recursive: true });
+          await fs.writeFile(fullPath, content);
+        }
+        
+        // Save package.json
+        if (agentSpec.code.package) {
+          await fs.writeFile(
+            path.join(outputDir, 'package.json'),
+            JSON.stringify(agentSpec.code.package, null, 2)
+          );
+        }
+        
+        // Save README
+        if (agentSpec.code.readme) {
+          await fs.writeFile(
+            path.join(outputDir, 'README.md'),
+            agentSpec.code.readme
+          );
+        }
+        
+        agentSpec.deploymentPath = outputDir;
+        logger.info('Agent code saved', { path: outputDir });
+        console.log(`✅ Agent files saved to: ${outputDir}`);
+      } catch (saveError) {
+        console.error('Failed to save agent files:', saveError);
+      }
+    }
     
     // Registrar métricas
     const executionTime = Date.now() - startTime;
-    const linesGenerated = interpretation.generatedCode ? 
-      interpretation.generatedCode.split('\n').length : 0;
+    const linesGenerated = interpretation.totalLines || 
+      (interpretation.generatedCode ? interpretation.generatedCode.split('\n').length : 0) || 
+      0;
     
     if (linesGenerated > 0) {
       metrics.recordAgentCreation(
@@ -210,9 +260,6 @@ app.post('/api/create-agent', async (req, res) => {
       success: true,
       agent: agentSpec,
       interpretation: interpretation,
-      code: interpretation.generatedCode,
-      tests: interpretation.generatedTests,
-      validation: interpretation.validationReport,
       metrics: {
         executionTime,
         linesGenerated
