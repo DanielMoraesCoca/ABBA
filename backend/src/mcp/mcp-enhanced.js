@@ -12,6 +12,7 @@ class MCPEnhanced extends MCPServer {
         // Register cost-saving tools
         this.registerIntelligentTools();
         this.llmFallback = new LLMManager();
+        await this.llmFallback.initialize();
     }
 
     registerIntelligentTools() {
