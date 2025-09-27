@@ -203,28 +203,114 @@ class ABBATools {
     }
     
     generateMainFile(architecture) {
-        // Generate intelligent agent base code
-        return `
-const { ABBAAgent } = require('@abba/agent-sdk');
+    const agentClassName = architecture.type.charAt(0).toUpperCase() + architecture.type.slice(1) + 'Agent';
+    
+    // Generate INTELLIGENT agent code
+    return `
+const IntelligentAgentSDK = require('./agent-sdk');
+const express = require('express');
 
-class ${architecture.type.charAt(0).toUpperCase() + architecture.type.slice(1)}Agent extends ABBAAgent {
+class ${agentClassName} extends IntelligentAgentSDK {
     constructor() {
         super({
             type: '${architecture.type}',
             capabilities: ${JSON.stringify(architecture.capabilities || [])}
         });
+        
+        this.app = express();
+        this.app.use(express.json());
+        this.setupRoutes();
     }
     
-    async process(input) {
-        // Agent logic here
-        const result = await this.think(input);
+    setupRoutes() {
+        this.app.post('/think', async (req, res) => {
+            const result = await this.think(req.body.input);
+            res.json(result);
+        });
+        
+        this.app.get('/memory', (req, res) => {
+            res.json({ 
+                memories: this.memory.length,
+                recent: this.memory.slice(-5)
+            });
+        });
+        
+        this.app.get('/health', (req, res) => {
+            res.json({ 
+                status: 'thinking',
+                type: '${architecture.type}',
+                intelligence: 'active'
+            });
+        });
+    }
+    
+    async localProcess(input, context) {
+        // Specific logic for ${architecture.type}
+        ${this.getSpecificLogic(architecture.type)}
+        
         return result;
+    }
+    
+    start(port = 3000) {
+        this.app.listen(port, () => {
+            console.log(\`🧠 ${agentClassName} thinking on port \${port}\`);
+        });
     }
 }
 
-module.exports = ${architecture.type.charAt(0).toUpperCase() + architecture.type.slice(1)}Agent;
+// Auto-start if run directly
+if (require.main === module) {
+    const agent = new ${agentClassName}();
+    agent.start();
+}
+
+module.exports = ${agentClassName};
 `;
-    }
+}
+
+getSpecificLogic(type) {
+    const logic = {
+        calculator: `
+        const numbers = this.extractNumbers(input);
+        const operation = this.detectOperation(input);
+        
+        let result = { response: 'Cannot compute', value: null };
+        
+        if (operation === 'add') result.value = numbers[0] + numbers[1];
+        if (operation === 'subtract') result.value = numbers[0] - numbers[1];
+        if (operation === 'multiply') result.value = numbers[0] * numbers[1];
+        if (operation === 'divide') result.value = numbers[1] !== 0 ? numbers[0] / numbers[1] : 'Error';
+        
+        result.response = \`The answer is \${result.value}\`;
+        result.learned = true;`,
+        
+        chatbot: `
+        const intent = this.detectIntent(input);
+        const sentiment = this.analyzeSentiment(input);
+        
+        let result = {
+            response: this.generateResponse(intent, sentiment, context),
+            intent,
+            sentiment
+        };`,
+        
+        api: `
+        const endpoint = this.parseEndpoint(input);
+        const method = this.parseMethod(input);
+        
+        let result = {
+            response: \`API endpoint \${endpoint} configured\`,
+            endpoint,
+            method
+        };`
+    };
+    
+    return logic[type] || `
+        let result = {
+            response: \`Processing: \${input}\`,
+            processed: true
+        };`;
+}
     
     generatePackageJson(architecture) {
         return {

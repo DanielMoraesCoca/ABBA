@@ -202,6 +202,10 @@ async function deployAgent(code, description, understanding) {
         
         // Create directory structure
         await fs.mkdir(agentPath, { recursive: true });
+        await fs.copyFile(
+    path.join(__dirname, 'templates/agent-sdk.js'),
+    path.join(agentPath, 'agent-sdk.js')
+);
         
         // Save all files
         if (code.files) {
