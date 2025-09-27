@@ -24,6 +24,7 @@
   "description": "",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.64.0",
+    "@langchain/core": "^0.3.77",
     "@modelcontextprotocol/sdk": "^1.18.2",
     "@modelcontextprotocol/server-filesystem": "^2025.8.21",
     "@modelcontextprotocol/server-postgres": "^0.6.2",
